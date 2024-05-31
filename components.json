@@ -15,9 +15,3 @@
     "utils": "@/lib/utils"
   }
 }
-
-
-git commit -m "added shadcn"
-git branch -M main
-git remote add origin https://github.com/programming-hero-web-course1/b9a12-client-side-im-sanny.git
-git push -u origin main
