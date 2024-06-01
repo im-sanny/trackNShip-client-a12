@@ -8,8 +8,8 @@ import {
 
 const Statistics = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-20 mb-10">
-      <Card x-chunk="dashboard-05-chunk-1" className="flex">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mb-10">
+      <Card className="flex">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
             src="https://i.ibb.co/zfynTjw/booking.png"
@@ -28,7 +28,7 @@ const Statistics = () => {
           </CardContent>
         </div>
       </Card>
-      <Card x-chunk="dashboard-05-chunk-1" className="flex">
+      <Card className="flex">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
             src="https://i.ibb.co/9NKJkT2/delivered.png"
@@ -47,7 +47,7 @@ const Statistics = () => {
           </CardContent>
         </div>
       </Card>
-      <Card x-chunk="dashboard-05-chunk-1" className="flex">
+      <Card className="flex">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
             src="https://i.ibb.co/5TftP6G/teamwork.png"
