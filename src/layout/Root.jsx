@@ -1,10 +1,11 @@
+import Navbar from "@/components/Navbar/Navbar";
 
 
 const Root = () => {
   return (
     <div>
       {/* navbar */}
-      <h1>navbar</h1>
+      <Navbar></Navbar>
       {/* outlet */}
       <h1>main</h1>
       {/* footer */}
