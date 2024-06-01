@@ -2,7 +2,7 @@ const Banner = () => {
   return (
     <>
       <div
-        className="relative bg-cover bg-center h-[500px]"
+        className="relative bg-cover bg-center h-[500px] mt-10 rounded-lg"
         style={{
           backgroundImage: "url('https://i.ibb.co/yBp1H6G/mesh-833.png')",
         }}

@@ -10,7 +10,7 @@ const Features = () => {
   return (
     <>
     <header className="text-4xl flex justify-center mt-10 font-semibold"> Our Features</header>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 lg:mx-10 my-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-10">
       <Card>
         <div className="pl-6 pt-6">
           <img
