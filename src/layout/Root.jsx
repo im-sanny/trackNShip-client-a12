@@ -1,3 +1,4 @@
+import Footer from "@/components/shared/Footer/Footer";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
@@ -10,7 +11,7 @@ const Root = () => {
       {/* outlet */}
       <Outlet></Outlet>
       {/* footer */}
-      <h1>footer</h1>
+      <Footer></Footer>
     </div>
   );
 };
