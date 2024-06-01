@@ -1,4 +1,5 @@
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/shared/Navbar/Navbar";
+import { Outlet } from "react-router-dom";
 
 
 const Root = () => {
@@ -7,7 +8,7 @@ const Root = () => {
       {/* navbar */}
       <Navbar></Navbar>
       {/* outlet */}
-      <h1>main</h1>
+      <Outlet></Outlet>
       {/* footer */}
       <h1>footer</h1>
     </div>
