@@ -38,7 +38,7 @@ const Navbar = () => {
         ></IoMdNotificationsOutline>
       </Link>
       <Link
-        href="#"
+        to={'/login'}
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Login

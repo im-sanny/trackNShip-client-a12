@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+// import Lottie from "lottie-react";
+// import cycle from "@/assets/Cycle.json";
 
 const Banner = () => {
   return (
     <>
+      {/* <div className="">
+        <Lottie animationData={cycle} className="h-[300px]"></Lottie>
+      </div> */}
       <div
         className="relative bg-cover bg-center h-[500px] mt-10 rounded-lg"
         style={{
@@ -15,12 +20,10 @@ const Banner = () => {
           <h1 className="text-5xl font-bold mb-4">Welcome to TrackNShip</h1>
           <p className="text-xl mb-8">Discover amazing content below</p>
           <div className="flex  md:w-1/2 lg:w-1/3">
-            
-           
             <div className="flex w-full  items-center space-x-2">
-      <Input type="text" placeholder="Search..." />
-      <Button type="submit">Search</Button>
-    </div>
+              <Input type="text" placeholder="Search..." />
+              <Button type="submit">Search</Button>
+            </div>
           </div>
         </div>
       </div>
