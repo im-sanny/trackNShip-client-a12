@@ -11,8 +11,11 @@ import {
 } from "../../ui/dropdown-menu";
 import { Button } from "../../ui/button";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { useContext } from "react";
+import { AuthContext } from "@/provider/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   const navLinks = (
     <>
       <Link
@@ -36,12 +39,6 @@ const Navbar = () => {
           size={20}
           className="ml-1"
         ></IoMdNotificationsOutline>
-      </Link>
-      <Link
-        to={'/login'}
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Login
       </Link>
     </>
   );
@@ -79,6 +76,14 @@ const Navbar = () => {
         </nav>
 
         <div className="flex justify-end lg:w- items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+          {!user && (
+            <Link
+              to={"/login"}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Login
+            </Link>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -90,7 +95,7 @@ const Navbar = () => {
               <DropdownMenuLabel>User Name</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Dashboard</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              {user && <DropdownMenuItem>Logout</DropdownMenuItem>}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

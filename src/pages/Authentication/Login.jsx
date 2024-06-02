@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center min-h-[calc(100vh-342px)]">
+      <div className="flex justify-center items-center">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg lg:max-w-4xl my-10">
           <div className="hidden justify-center items-center my-auto lg:block lg:w-1/2">
             <Lottie animationData={bikeCourier}></Lottie>
@@ -77,7 +77,7 @@ const Login = () => {
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link to={"/registration"} className="hover:underline">
-                Sign up
+                Register
               </Link>
             </div>
           </div>

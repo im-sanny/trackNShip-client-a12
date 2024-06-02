@@ -19,7 +19,7 @@ const Registration = () => {
   const handleGoogleLogin = () => {};
   return (
     <div>
-      <div className="flex justify-center items-center min-h-[calc(100vh-342px)]">
+      <div className="flex justify-center items-center">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg  lg:max-w-4xl ">
           <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
             <p className="mt-3 text-xl text-center text-gray-600 ">
@@ -95,7 +95,7 @@ const Registration = () => {
               </div>
 
               <Button type="submit" className="w-full mt-4">
-                Sign Up
+                Register
               </Button>
             </form>
             <Button
@@ -115,7 +115,7 @@ const Registration = () => {
                 to="/login"
                 className="text-xs text-gray-500 uppercase  hover:underline"
               >
-                or sign in
+                or log in
               </Link>
 
               <span className="w-1/5 border-b  md:w-1/4"></span>
