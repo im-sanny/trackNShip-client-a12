@@ -2,21 +2,51 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import bikeCourier from "@/assets/bikeCourier";
+import useAuth from "@/hooks/useAuth";
+import { imageUpload } from "@/api/utils";
+import toast from "react-hot-toast";
 
 const Registration = () => {
-  const handleSignUp = (e) => {
+  const { setLoading, createUser, signInWithGoogle, updateUserProfile } =
+    useAuth();
+  const navigate = useNavigate();
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const name = form.name.value;
+    const password = form.password.value;
     const image = form.image.value;
-    const pass = form.password.value;
-    console.log({ email, name, image, pass });
+
+    try {
+      setLoading(true);
+      // upload image and get imageURL
+      const image_url = await imageUpload(image);
+      console.log(image_url);
+      // registration
+      const result = await createUser(email, password);
+      // save name and image in firebase
+      await updateUserProfile(name, image_url);
+      navigate("/");
+      toast.success("Registration Successful");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
   return (
     <div>
       <div className="flex justify-center items-center">
