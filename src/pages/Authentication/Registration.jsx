@@ -10,10 +10,16 @@ import { imageUpload } from "@/api/utils";
 import toast from "react-hot-toast";
 
 const Registration = () => {
-  const { setLoading, createUser, signInWithGoogle, updateUserProfile } =
-    useAuth();
+  const {
+    setLoading,
+    loading,
+    createUser,
+    signInWithGoogle,
+    updateUserProfile,
+  } = useAuth();
   const navigate = useNavigate();
   const handleSignUp = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
@@ -36,15 +42,21 @@ const Registration = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   const handleGoogleLogin = async () => {
+    setLoading(true);
     try {
       await signInWithGoogle();
       navigate("/");
+      toast.success("Registration successful");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -126,9 +138,8 @@ const Registration = () => {
                   accept="image/*"
                 />
               </div>
-
-              <Button type="submit" className="w-full mt-4">
-                Register
+              <Button disabled={loading} type="submit" className="w-full mt-4">
+                {loading ? <span className="loader"></span> : "Register"}
               </Button>
             </form>
             <Button

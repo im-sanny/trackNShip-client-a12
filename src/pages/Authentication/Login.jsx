@@ -1,20 +1,66 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Lottie from "lottie-react";
 import bikeCourier from "@/assets/bikeCourier";
+import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Login = () => {
-  const handleGoogleLogin = () => {};
+  const { signInWithGoogle, loading, setLoading, signIn, resetPassword } =
+    useAuth();
+  const location = useLocation();
+  const Form = location?.state || "/";
+  const navigate = useNavigate();
+  const [email, setEmail] = useState()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log({ email, password });
+
+    try {
+      await signIn(email, password);
+      navigate(form);
+      toast.success("Login Successful");
+      form.reset();
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      await signInWithGoogle();
+      navigate(Form);
+      toast.success("Login successful");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) return toast.error("Please write your email first!");
+    try {
+      await resetPassword(email);
+      toast.success('Request Successful, Check your email for further process...')
+      setLoading(false)
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,6 +89,7 @@ const Login = () => {
                 <Input
                   id="email"
                   type="email"
+                  onBlur={e => setEmail(e.target.value)}
                   name="email"
                   placeholder="m@example.com"
                   required
@@ -59,9 +106,15 @@ const Login = () => {
                   placeholder="********"
                   required
                 />
+                <span
+                  onClick={handleResetPassword} 
+                  className="flex text-start text-xs hover:underline hover:text-rose-500 text-gray-400 cursor-pointer"
+                >
+                  Forgot password?
+                </span>
               </div>
-              <Button type="submit" className="w-full">
-                Login
+              <Button disabled={loading} type="submit" className="w-full">
+                {loading ? <span className="loader"></span> : " Login"}
               </Button>
             </form>
 
