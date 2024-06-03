@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { CircleUser, Menu } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import {
   DropdownMenu,
@@ -11,27 +11,27 @@ import {
 } from "../../ui/dropdown-menu";
 import { Button } from "../../ui/button";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { useContext } from "react";
-import { AuthContext } from "@/provider/AuthProvider";
+import useAuth from "@/hooks/useAuth";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
+
   const navLinks = (
     <>
       <Link
-        href="#"
+        to={"/"}
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Home
       </Link>
       <Link
-        href="#"
+        to={"/dashboard"}
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Dashboard
       </Link>
       <Link
-        href="#"
+        to={"/notification"}
         className="text-muted-foreground transition-colors hover:text-foreground flex items-center"
       >
         Notification
@@ -87,15 +87,29 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                {/* <span className="sr-only">Toggle user menu</span> */}
+                <img
+                  className="rounded-full"
+                  referrerPolicy="no-referrer"
+                  src={user && user.photoURL ? user.photoURL : 'https://i.ibb.co/Mp6rjCg/profile.jpg'}
+                  alt="profile"
+                  height="30"
+                  width="30"
+                />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>User Name</DropdownMenuLabel>
+              {user && (
+                <DropdownMenuLabel referrerPolicy="no-referrer">
+                  {user.displayName}
+                </DropdownMenuLabel>
+              )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Dashboard</DropdownMenuItem>
-              {user && <DropdownMenuItem>Logout</DropdownMenuItem>}
+              <DropdownMenuItem>
+                <NavLink to={"/dashboard"}>Dashboard</NavLink>
+              </DropdownMenuItem>
+              {user && (
+                <DropdownMenuItem onClick={logOut}>Logout</DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

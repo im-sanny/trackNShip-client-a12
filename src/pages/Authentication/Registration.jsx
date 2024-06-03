@@ -25,8 +25,7 @@ const Registration = () => {
     const email = form.email.value;
     const name = form.name.value;
     const password = form.password.value;
-    const image = form.image.value;
-
+    const image = form.image.files[0];
     try {
       setLoading(true);
       // upload image and get imageURL
