@@ -39,15 +39,15 @@ const router = createBrowserRouter([
         element: <Common></Common>,
       },
       {
-        index: "/book-parcel",
+        path: "book-parcel",
         element: <BookParcel></BookParcel>,
       },
       {
-        index: "/my-parcel",
+        path: "my-parcel",
         element: <MyParcel></MyParcel>,
       },
       {
-        index: "/my-profile",
+        path: "my-profile",
         element: <MyProfile></MyProfile>,
       },
     ],

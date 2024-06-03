@@ -28,7 +28,8 @@ const Sidebar = () => {
     <>
       <nav className="grid items-start px-2 space-y-2 text-sm font-medium lg:px-4">
         <NavLink
-          to={"/"}
+          to={"/dashboard"}
+          end
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
               isActive
@@ -38,10 +39,10 @@ const Sidebar = () => {
           }
         >
           <Home className="h-4 w-4" />
-          Dashboard
+          Common
         </NavLink>
         <NavLink
-          to={""}
+          to="book-parcel"
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
               isActive
@@ -51,13 +52,13 @@ const Sidebar = () => {
           }
         >
           <ShoppingCart className="h-4 w-4" />
-          Orders
+          Book A Parcel
           <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
             6
           </Badge>
         </NavLink>
         <NavLink
-          to={""}
+          to={"my-parcel"}
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
               isActive
@@ -67,10 +68,10 @@ const Sidebar = () => {
           }
         >
           <Package className="h-4 w-4" />
-          Products{" "}
+          My Parcel
         </NavLink>
         <NavLink
-          to={""}
+          to={"my-profile"}
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
               isActive
@@ -80,7 +81,7 @@ const Sidebar = () => {
           }
         >
           <Users className="h-4 w-4" />
-          Customers
+          My Profile
         </NavLink>
         <NavLink
           to={""}
