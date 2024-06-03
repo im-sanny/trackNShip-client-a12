@@ -1,5 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { Menu, Moon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import {
   DropdownMenu,
@@ -12,34 +12,75 @@ import {
 import { Button } from "../../ui/button";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      toast.success("LogOut successful");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const navLinks = (
     <>
-      <Link
+      <NavLink
         to={"/"}
-        className="text-muted-foreground transition-colors hover:text-foreground"
+        className={({ isActive }) =>
+          `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+            isActive
+              ? "bg-muted text-green-500"
+              : "hover:bg-muted hover:text-green-500"
+          }`
+        }
       >
         Home
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         to={"/dashboard"}
-        className="text-muted-foreground transition-colors hover:text-foreground"
+        className={({ isActive }) =>
+          `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+            isActive
+              ? "bg-muted text-green-500"
+              : "hover:bg-muted hover:text-green-500"
+          }`
+        }
       >
         Dashboard
-      </Link>
-      <Link
+      </NavLink>
+      {!user && (
+        <NavLink
+          to={"/login"}
+          className={({ isActive }) =>
+            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+              isActive
+                ? "bg-muted text-green-500"
+                : "hover:bg-muted hover:text-green-500"
+            }`
+          }
+        >
+          Login
+        </NavLink>
+      )}
+      <NavLink
         to={"/notification"}
-        className="text-muted-foreground transition-colors hover:text-foreground flex items-center"
+        className={({ isActive }) =>
+          `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+            isActive
+              ? "bg-muted text-green-500"
+              : "hover:bg-muted hover:text-green-500"
+          }`
+        }
       >
         Notification
         <IoMdNotificationsOutline
           size={20}
           className="ml-1"
         ></IoMdNotificationsOutline>
-      </Link>
+      </NavLink>
     </>
   );
   return (
@@ -75,22 +116,19 @@ const Navbar = () => {
           {navLinks}
         </nav>
 
-        <div className="flex justify-end lg:w- items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          {!user && (
-            <Link
-              to={"/login"}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Login
-            </Link>
-          )}
+        <div className="flex justify-end  lg:w- items-center gap-2 md:ml-auto md:gap-2 lg:gap-4">
+          <Moon></Moon>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
                 <img
                   className="rounded-full"
                   referrerPolicy="no-referrer"
-                  src={user && user.photoURL ? user.photoURL : 'https://i.ibb.co/Mp6rjCg/profile.jpg'}
+                  src={
+                    user && user.photoURL
+                      ? user.photoURL
+                      : "https://i.ibb.co/Mp6rjCg/profile.jpg"
+                  }
                   alt="profile"
                   height="30"
                   width="30"
@@ -105,10 +143,32 @@ const Navbar = () => {
               )}
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+                      isActive
+                        ? "bg-muted text-green-500"
+                        : "hover:bg-muted hover:text-green-500"
+                    }`
+                  }
+                  to={"/dashboard"}
+                >
+                  Dashboard
+                </NavLink>
               </DropdownMenuItem>
               {user && (
-                <DropdownMenuItem onClick={logOut}>Logout</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleLogOut}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+                      isActive
+                        ? "bg-muted text-green-500"
+                        : "hover:bg-muted hover:text-green-500"
+                    }`
+                  }
+                >
+                  Logout
+                </DropdownMenuItem>
               )}
             </DropdownMenuContent>
           </DropdownMenu>
