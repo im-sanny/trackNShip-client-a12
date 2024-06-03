@@ -3,8 +3,10 @@ import {
   Bell,
   Home,
   LineChart,
+  LogOut,
   Menu,
   Package,
+  Settings,
   ShoppingCart,
   Users,
 } from "lucide-react";
@@ -19,6 +21,7 @@ import {
 } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, NavLink } from "react-router-dom";
+import { Separator } from "@/components/ui/separator";
 
 const Sidebar = () => {
   const navLinks = (
@@ -117,21 +120,21 @@ const Sidebar = () => {
               </Button>
             </div>
             <div className="flex-1">{navLinks}</div>
+            <Separator></Separator>
             <div className="mt-auto p-4">
-              <Card x-chunk="dashboard-02-chunk-0">
-                <CardHeader className="p-2 pt-0 md:p-4">
-                  <CardTitle>Upgrade to Pro</CardTitle>
-                  <CardDescription>
-                    Unlock all features and get unlimited access to our support
-                    team.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                  <Button size="sm" className="w-full">
-                    Upgrade
-                  </Button>
-                </CardContent>
-              </Card>
+              <button className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
+                <Settings className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Profile</span>
+              </button>
+              <button
+                // onClick={logOut}
+                className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+              >
+                <LogOut className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Logout</span>
+              </button>
             </div>
           </div>
         </div>
@@ -178,6 +181,7 @@ const Sidebar = () => {
                 </div>
               </SheetContent>
             </Sheet>
+            {/* sm logo */}
             <>
               <div className="flex justify-end w-full md:hidden">
                 <Link
