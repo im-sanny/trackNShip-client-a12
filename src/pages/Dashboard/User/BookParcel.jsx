@@ -1,9 +1,7 @@
+import ParcelBookForm from "@/components/Dashboard/Forms/ParcelBookForm";
+
 const BookParcel = () => {
-  return (
-    <div>
-      <h1>book parcel form</h1>
-    </div>
-  );
+  return <ParcelBookForm></ParcelBookForm>;
 };
 
 export default BookParcel;
