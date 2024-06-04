@@ -9,6 +9,7 @@ import Common from "@/pages/Dashboard/Common/Common";
 import BookParcel from "@/pages/Dashboard/User/BookParcel";
 import MyParcel from "@/pages/Dashboard/User/MyParcel";
 import MyProfile from "@/pages/Dashboard/User/MyProfile";
+import UpdateBooking from "@/pages/Dashboard/DashPages/UpdateBooking";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "update-parcel/:id",
+        element: <UpdateBooking></UpdateBooking>,
       },
     ],
   },

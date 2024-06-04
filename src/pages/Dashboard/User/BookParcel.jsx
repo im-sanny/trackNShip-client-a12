@@ -4,10 +4,10 @@ import { Helmet } from "react-helmet-async";
 const BookParcel = () => {
   return (
     <>
-    <Helmet>
-      <title>Book Parcel | Dashboard</title>
-    </Helmet>
-  <ParcelBookForm></ParcelBookForm>
+      <Helmet>
+        <title>Book Parcel | Dashboard</title>
+      </Helmet>
+      <ParcelBookForm></ParcelBookForm>
     </>
   );
 };

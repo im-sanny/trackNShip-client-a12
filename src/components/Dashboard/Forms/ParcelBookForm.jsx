@@ -33,6 +33,8 @@ const ParcelBookForm = () => {
     return 0; // Return 0 if weight is not valid
   };
 
+  const today = new Date().toISOString().split("T")[0];
+  
   const onSubmit = async (data) => {
     setLoading(true);
     const normalUser = {
@@ -166,9 +168,10 @@ const ParcelBookForm = () => {
               Requested Delivery Date
             </Label>
             <Input
-              placeholder="requested delivery date"
-              id="requestedDeliveryDate"
               type="date"
+              id="requestedDeliveryDate"
+              name="requestedDeliveryDate"
+              min={today}
               required
               {...register("requestedDeliveryDate")}
             />

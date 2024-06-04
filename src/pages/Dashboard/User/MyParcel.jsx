@@ -31,14 +31,18 @@ import { useQuery } from "@tanstack/react-query";
 import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [filterStatus, setFilterStatus] = useState("all");
 
-  const { data: myParcel = [], isLoading, refetch } = useQuery({
+  const {
+    data: myParcel = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["bookParcel", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/myParcel/${user?.email}`);
@@ -48,12 +52,23 @@ const MyParcel = () => {
 
   const handleCancel = async (id) => {
     try {
-      const response = await axiosSecure.patch(`/cancelParcel/${id}`);
+      const response = await axiosSecure.delete(`/cancelParcel/${id}`);
       if (response.status === 200) {
-        toast.success("Parcel cancelled successfully!");
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your parcel has been cancelled.",
+          icon: "success",
+        });
+        refetch()
       }
     } catch (error) {
-      toast.error("Failed to cancel parcel. Please try again.");
+      Swal.fire({
+        title: "Error!",
+        text:
+          error.response?.data?.message ||
+          "Failed to cancel parcel. Please try again.",
+        icon: "error",
+      });
     }
   };
 
@@ -61,6 +76,12 @@ const MyParcel = () => {
     filterStatus === "all"
       ? myParcel
       : myParcel.filter((parcel) => parcel.status === filterStatus);
+
+  //   const YourComponent = ({ parcel, filterStatus, myParcel }) => {
+  //     const filteredParcels =
+  //       filterStatus === "all"
+  //         ? myParcel
+  //         : myParcel.filter((parcel) => parcel.status === filterStatus);
 
   if (isLoading) return <h1>Loading</h1>;
 
@@ -224,16 +245,32 @@ const MyParcel = () => {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                              <DropdownMenuItem
-                                as={Link}
+                              <Link
                                 to={`/dashboard/update-parcel/${parcel._id}`}
-                                disabled={parcel.status !== "pending"}
                               >
-                                Update
-                              </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  disabled={parcel.status !== "pending"}
+                                >
+                                  Update
+                                </DropdownMenuItem>
+                              </Link>
                               <DropdownMenuItem
-                                onClick={() => handleCancel(parcel._id)}
-                                disabled={parcel.status !== "pending"}
+                                onClick={() => {
+                                  Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "You won't be able to revert this!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, delete it!',
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      handleCancel(parcel._id);
+                                    }
+                                  });
+                                }}
+                                disabled={parcel.status !== 'pending'}
                               >
                                 Cancel
                               </DropdownMenuItem>
