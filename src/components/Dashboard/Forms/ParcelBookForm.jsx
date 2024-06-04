@@ -1,15 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
-// import axios from "axios";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 // import { useNavigate } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const ParcelBookForm = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
   //   const navigate = useNavigate();
 
   const {
@@ -31,6 +34,7 @@ const ParcelBookForm = () => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const parcelData = {
         ...data,
@@ -40,13 +44,17 @@ const ParcelBookForm = () => {
         price: calculatePrice(data.parcelWeight),
       };
       console.log(parcelData);
-      //   await axios.post("/api/parcel", parcelData);
-      //   toast.success("Parcel booked successfully!");
-      reset();
-      //   navigate("/"); // Redirect to home or any other page after booking
+      const response = await axiosSecure.post(`/bookParcel`, parcelData);
+      if (response.status === 201 || response.status === 200) {
+        console.log(response.data);
+        toast.success("Parcel booked successfully!");
+        reset();
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error booking parcel:", error.message);
       toast.error("Failed to book parcel. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -97,7 +105,6 @@ const ParcelBookForm = () => {
               required
               {...register("parcelType")}
             />
-            {errors.parcelType && <p>{errors.parcelType.message}</p>}
           </div>
           <div>
             <Label htmlFor="parcelWeight">Parcel Weight (kg)</Label>
@@ -108,7 +115,6 @@ const ParcelBookForm = () => {
               required
               {...register("parcelWeight")}
             />
-            {errors.parcelWeight && <p>{errors.parcelWeight.message}</p>}
           </div>
           <div>
             <Label htmlFor="price">Price</Label>
@@ -128,7 +134,6 @@ const ParcelBookForm = () => {
               required
               {...register("receiverName")}
             />
-            {errors.receiverName && <p>{errors.receiverName.message}</p>}
           </div>
           <div>
             <Label htmlFor="receiverPhoneNumber">Receiver's Phone Number</Label>
@@ -138,9 +143,6 @@ const ParcelBookForm = () => {
               required
               {...register("receiverPhoneNumber")}
             />
-            {errors.receiverPhoneNumber && (
-              <p>{errors.receiverPhoneNumber.message}</p>
-            )}
           </div>
           <div>
             <Label htmlFor="deliveryAddress">Parcel Delivery Address</Label>
@@ -150,7 +152,6 @@ const ParcelBookForm = () => {
               required
               {...register("deliveryAddress")}
             />
-            {errors.deliveryAddress && <p>{errors.deliveryAddress.message}</p>}
           </div>
           <div>
             <Label htmlFor="requestedDeliveryDate">
@@ -163,9 +164,6 @@ const ParcelBookForm = () => {
               required
               {...register("requestedDeliveryDate")}
             />
-            {errors.requestedDeliveryDate && (
-              <p>{errors.requestedDeliveryDate.message}</p>
-            )}
           </div>
           <div>
             <Label htmlFor="deliveryLat">Delivery Address Latitude</Label>
@@ -176,7 +174,6 @@ const ParcelBookForm = () => {
               required
               {...register("deliveryLat")}
             />
-            {errors.deliveryLat && <p>{errors.deliveryLat.message}</p>}
           </div>
           <div>
             <Label htmlFor="deliveryLon">Delivery Address Longitude</Label>
@@ -187,7 +184,6 @@ const ParcelBookForm = () => {
               type="number"
               {...register("deliveryLon")}
             />
-            {errors.deliveryLon && <p>{errors.deliveryLon.message}</p>}
           </div>
 
           <Button
