@@ -35,13 +35,21 @@ const ParcelBookForm = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+    const normalUser = {
+      name: user?.displayName,
+      image: user?.photoURL,
+      email: user?.email,
+    };
+    const currentDate = new Date().toLocaleDateString();
     try {
       const parcelData = {
         ...data,
-        name: user.displayName,
-        email: user.email,
+        normalUser,
+        // name: user.displayName,
+        // email: user.email,
         status: "pending",
         price: calculatePrice(data.parcelWeight),
+        currentDate,
       };
       console.log(parcelData);
       const response = await axiosSecure.post(`/bookParcel`, parcelData);
