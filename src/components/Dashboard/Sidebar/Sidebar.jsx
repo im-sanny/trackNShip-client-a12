@@ -12,13 +12,6 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, NavLink } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
@@ -100,8 +93,8 @@ const Sidebar = () => {
     </>
   );
   return (
-    <div>
-      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <>
+      <div className="grid lg:min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         <div className="hidden border-r bg-muted/40 md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -122,7 +115,7 @@ const Sidebar = () => {
             </div>
             <div className="flex-1">{navLinks}</div>
             <Separator></Separator>
-            <div className="mt-auto p-4">
+            <div className="lg:my-auto px-4 pb-6">
               <button className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
                 <Settings className="w-5 h-5" />
 
@@ -164,21 +157,21 @@ const Sidebar = () => {
                   </div>
                 </Link>
                 {navLinks}
-                <div className="mt-auto">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Upgrade to Pro</CardTitle>
-                      <CardDescription>
-                        Unlock all features and get unlimited access to our
-                        support team.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button size="sm" className="w-full">
-                        Upgrade
-                      </Button>
-                    </CardContent>
-                  </Card>
+                <Separator></Separator>
+                <div className="lg:my-auto px-2">
+                  <button className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
+                    <Settings className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Profile</span>
+                  </button>
+                  <button
+                    // onClick={logOut}
+                    className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+                  >
+                    <LogOut className="w-5 h-5" />
+
+                    <span className="mx-4 font-medium">Logout</span>
+                  </button>
                 </div>
               </SheetContent>
             </Sheet>
@@ -203,7 +196,7 @@ const Sidebar = () => {
           </header>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
