@@ -1,3 +1,6 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,11 +27,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyParcel = () => {
+    const axiosSecure = useAxiosSecure()
+    const { data: rooms = [], isLoading } = useQuery({
+        queryKey: ['rooms', category],
+        queryFn: async () => {
+          const { data } = await axiosCommon.get(`/rooms?category=${category}`)
+    
+          return data
+        },
+      })
   return (
     <>
       <main className="grid overflow-x-auto md:overflow-hidden flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:pt-5">
