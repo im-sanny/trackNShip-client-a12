@@ -38,11 +38,7 @@ const MyParcel = () => {
   const axiosSecure = useAxiosSecure();
   const [filterStatus, setFilterStatus] = useState("all");
 
-  const {
-    data: myParcel = [],
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: myParcel = [], isLoading, refetch } = useQuery({
     queryKey: ["bookParcel", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/myParcel/${user?.email}`);
