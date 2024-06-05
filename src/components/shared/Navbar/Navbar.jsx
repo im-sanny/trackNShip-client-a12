@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Menu, Moon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import {
@@ -19,10 +19,12 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 const Navbar = () => {
   const axiosSecure = useAxiosSecure();
   const { user, logOut } = useAuth();
+  const navigate = useNavigate()
   const handleLogOut = async () => {
     try {
       await logOut();
       toast.success("LogOut successful");
+      navigate('/')
     } catch (error) {
       toast.error(error.message);
     }
@@ -35,7 +37,7 @@ const Navbar = () => {
     //   toast.error("You need to be logged in to make this request.");
     //   return;
     // }
-    
+
     try {
       const currentUser = {
         email: user?.email,
