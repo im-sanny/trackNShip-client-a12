@@ -13,14 +13,44 @@ import { Button } from "../../ui/button";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import DeliverymanModal from "@/components/Modal/DeliverymanModal";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const Navbar = () => {
+  const axiosSecure = useAxiosSecure();
   const { user, logOut } = useAuth();
   const handleLogOut = async () => {
     try {
       await logOut();
       toast.success("LogOut successful");
     } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const modalHandler = async () => {
+    console.log("im interested to be deliveryman");
+
+    // if (!user || !user.email) {
+    //   toast.error("You need to be logged in to make this request.");
+    //   return;
+    // }
+    
+    try {
+      const currentUser = {
+        email: user?.email,
+        role: "user",
+        status: "Requested",
+      };
+      const { data } = await axiosSecure.put(`/user`, currentUser);
+      if (data.modifiedCount > 0) {
+        toast.success("Success, please wait for admin approval");
+      } else {
+        toast.success("request on process, please wait!");
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
       toast.error(error.message);
     }
   };
@@ -142,10 +172,20 @@ const Navbar = () => {
                 </DropdownMenuLabel>
               )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <div className="text-center flex justify-center mb-1">
+                {/* {user &&  */}
+                <DeliverymanModal
+                  modalHandler={modalHandler}
+                ></DeliverymanModal>
+                {/* } */}
+              </div>
+              <Button
+                variant="outline"
+                className="text-center flex justify-center mb-1 w-full"
+              >
                 <NavLink
                   className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+                    `flex items-center text-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
                       isActive
                         ? "bg-muted text-green-500"
                         : "hover:bg-muted hover:text-green-500"
@@ -155,20 +195,25 @@ const Navbar = () => {
                 >
                   Dashboard
                 </NavLink>
-              </DropdownMenuItem>
+              </Button>
               {user && (
-                <DropdownMenuItem
-                  onClick={handleLogOut}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-                      isActive
-                        ? "bg-muted text-green-500"
-                        : "hover:bg-muted hover:text-green-500"
-                    }`
-                  }
+                <Button
+                  variant="outline"
+                  className="flex w-full justify-center"
                 >
-                  Logout
-                </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleLogOut}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
+                        isActive
+                          ? "bg-muted text-green-500"
+                          : "hover:bg-muted hover:text-green-500"
+                      }`
+                    }
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </Button>
               )}
             </DropdownMenuContent>
           </DropdownMenu>
