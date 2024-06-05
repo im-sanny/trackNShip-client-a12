@@ -6,18 +6,17 @@ import {
   LogOut,
   Menu,
   Package,
-  Settings,
   ShoppingCart,
   Users,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
 import toast from "react-hot-toast";
+import Navs from "./Navs/Navs";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -38,75 +37,15 @@ const Sidebar = () => {
   const navLinks = (
     <>
       <nav className="grid items-start px-2 space-y-2 text-sm font-medium lg:px-4">
-        <NavLink
-          to={"/dashboard"}
-          end
-          className={({ isActive }) =>
-            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-              isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
-            }`
-          }
-        >
-          <Home className="h-4 w-4" />
-          Common
-        </NavLink>
-        <NavLink
-          to="book-parcel"
-          className={({ isActive }) =>
-            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-              isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
-            }`
-          }
-        >
-          <ShoppingCart className="h-4 w-4" />
-          Book A Parcel
-          <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-            6
-          </Badge>
-        </NavLink>
-        <NavLink
-          to={"my-parcel"}
-          className={({ isActive }) =>
-            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-              isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
-            }`
-          }
-        >
-          <Package className="h-4 w-4" />
-          My Parcel
-        </NavLink>
-        <NavLink
-          to={"my-profile"}
-          className={({ isActive }) =>
-            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-              isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
-            }`
-          }
-        >
-          <Users className="h-4 w-4" />
-          My Profile
-        </NavLink>
-        <NavLink
-          to={""}
-          className={({ isActive }) =>
-            `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
-              isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
-            }`
-          }
-        >
-          <LineChart className="h-4 w-4" />
-          Analytics
-        </NavLink>
+        <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs>
+        <Navs
+          label={"Book Parcel"}
+          address={"book-parcel"}
+          icon={ShoppingCart}
+        ></Navs>
+        <Navs label={"My Parcel"} address={"my-parcel"} icon={Package}></Navs>
+        <Navs label={"Analytics"} address={"analytics"} icon={LineChart}></Navs>
+        <Navs label={"My Profile"} address={"my-profile"} icon={Users}></Navs>
       </nav>
     </>
   );
@@ -134,11 +73,6 @@ const Sidebar = () => {
             <div className="flex-1">{navLinks}</div>
             <Separator></Separator>
             <div className="lg:my-auto px-4 pb-6">
-              <button className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
-                <Settings className="w-5 h-5" />
-
-                <span className="mx-4 font-medium">Profile</span>
-              </button>
               <button
                 onClick={handleLogOut}
                 className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
@@ -177,11 +111,6 @@ const Sidebar = () => {
                 {navLinks}
                 <Separator></Separator>
                 <div className="lg:my-auto px-2">
-                  <button className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
-                    <Settings className="w-5 h-5" />
-
-                    <span className="mx-4 font-medium">Profile</span>
-                  </button>
                   <button
                     onClick={handleLogOut}
                     className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
