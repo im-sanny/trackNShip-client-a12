@@ -3,9 +3,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
-// import { useNavigate, useParams } from "react-router-dom";
 import { Label } from "@/components/ui/label";
-
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
