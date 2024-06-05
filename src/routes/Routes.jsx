@@ -54,9 +54,16 @@ const router = createBrowserRouter([
       {
         path: "update-parcel/:id",
         element: <UpdateBooking></UpdateBooking>,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`, ),
       },
     ],
   },
 ]);
 
 export default router;
+
+    // loader: ({ params }) =>
+    //   fetch(`http://localhost:8000/updateParcel/update/${params.id}`, {
+    //     credentials: "include",
+    //   })
