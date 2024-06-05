@@ -13,14 +13,27 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
-// import useAuth from "@/hooks/useAuth";
-// import useRole from "@/hooks/useRole";
-// import toast from "react-hot-toast";
+import useAuth from "@/hooks/useAuth";
+import useRole from "@/hooks/useRole";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
-  
+  const { logOut } = useAuth();
+  const [role, isLoading] = useRole();
+  console.log(role, isLoading);
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      toast.success("LogOut successful");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const navLinks = (
     <>
@@ -127,7 +140,7 @@ const Sidebar = () => {
                 <span className="mx-4 font-medium">Profile</span>
               </button>
               <button
-                // onClick={handleLogOut}
+                onClick={handleLogOut}
                 className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
               >
                 <LogOut className="w-5 h-5" />
@@ -170,7 +183,7 @@ const Sidebar = () => {
                     <span className="mx-4 font-medium">Profile</span>
                   </button>
                   <button
-                    // onClick={handleLogOut}
+                    onClick={handleLogOut}
                     className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
                   >
                     <LogOut className="w-5 h-5" />
