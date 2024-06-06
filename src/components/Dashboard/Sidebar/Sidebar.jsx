@@ -1,14 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import {
-  Bell,
-  Home,
-  LineChart,
-  LogOut,
-  Menu,
-  Package,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Bell, Home, LogOut, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +8,9 @@ import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
 import toast from "react-hot-toast";
 import Navs from "./Navs/Navs";
+import DeliverymanNav from "./Navs/DeliverymanNav";
+import UserNav from "./Navs/UserNav";
+import AdminNav from "./Navs/AdminNav";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -38,14 +32,9 @@ const Sidebar = () => {
     <>
       <nav className="grid items-start px-2 space-y-2 text-sm font-medium lg:px-4">
         <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs>
-        <Navs
-          label={"Book Parcel"}
-          address={"book-parcel"}
-          icon={ShoppingCart}
-        ></Navs>
-        <Navs label={"My Parcel"} address={"my-parcel"} icon={Package}></Navs>
-        <Navs label={"Analytics"} address={"analytics"} icon={LineChart}></Navs>
-        <Navs label={"My Profile"} address={"my-profile"} icon={Users}></Navs>
+        {role === "user" && <UserNav></UserNav>}
+        {role === "deliveryman" && <DeliverymanNav></DeliverymanNav>}
+        {role === "admin" && <AdminNav></AdminNav>}
       </nav>
     </>
   );
