@@ -13,6 +13,7 @@ import UpdateBooking from "@/pages/Dashboard/DashPages/UpdateBooking";
 import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import Statistics from "@/pages/Dashboard/Admin/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <Common></Common>
+            {/* <Common></Common> */}
           </PrivateRoute>
         ),
       },
@@ -85,6 +86,16 @@ const router = createBrowserRouter([
           fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`),
       },
       // admin
+      {
+        path: "statistics",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <Statistics></Statistics>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "all-users",
         element: (

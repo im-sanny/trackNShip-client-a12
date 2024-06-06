@@ -27,6 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
     "firebase": "^10.12.2",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.381.0",

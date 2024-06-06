@@ -31,7 +31,7 @@ const Sidebar = () => {
   const navLinks = (
     <>
       <nav className="grid items-start px-2 space-y-2 text-sm font-medium lg:px-4">
-        <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs>
+        {/* <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs> */}
         {role === "user" && <UserNav></UserNav>}
         {role === "deliveryman" && <DeliverymanNav></DeliverymanNav>}
         {role === "admin" && <AdminNav></AdminNav>}
