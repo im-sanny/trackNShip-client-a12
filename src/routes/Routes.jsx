@@ -10,6 +10,7 @@ import BookParcel from "@/pages/Dashboard/User/BookParcel";
 import MyParcel from "@/pages/Dashboard/User/MyParcel";
 import MyProfile from "@/pages/Dashboard/User/MyProfile";
 import UpdateBooking from "@/pages/Dashboard/DashPages/UpdateBooking";
+import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -57,13 +58,13 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`, ),
       },
+      // admin
+      {
+        path: "all-users",
+        element: <AllUsers></AllUsers>,
+      },
     ],
   },
 ]);
 
 export default router;
-
-    // loader: ({ params }) =>
-    //   fetch(`http://localhost:8000/updateParcel/update/${params.id}`, {
-    //     credentials: "include",
-    //   })
