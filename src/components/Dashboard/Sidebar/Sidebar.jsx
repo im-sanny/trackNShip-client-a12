@@ -34,7 +34,7 @@ const Sidebar = () => {
         <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs>
         {role === "user" && <UserNav></UserNav>}
         {role === "deliveryman" && <DeliverymanNav></DeliverymanNav>}
-        {role === "Admin" && <AdminNav></AdminNav>}
+        {role === "admin" && <AdminNav></AdminNav>}
       </nav>
     </>
   );

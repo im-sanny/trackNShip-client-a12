@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -21,6 +23,7 @@ import toast from "react-hot-toast";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const { user: loggedInUser } = useAuth();
 
   // Fetch users data
   const {
@@ -37,23 +40,27 @@ const AllUsers = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async ({ email, role }) => {
-      const { data } = await axiosSecure.patch(
-        `/user/update/${email}`,
-        { role, status: "Verified" }
-      );
+      const { data } = await axiosSecure.patch(`/user/update/${email}`, {
+        role,
+        status: "Verified",
+      });
       return data;
     },
     onSuccess: () => {
       refetch();
-      toast.success('User role updated successfully');
+      toast.success("User role updated successfully");
     },
     onError: (error) => {
       console.error(error);
       toast.error(error.message);
-    }
+    },
   });
 
   const changeUserRole = async (email, role) => {
+    if (loggedInUser.email === email) {
+      toast.error('Action not allowed: You cannot change your own role');
+      return;
+    }
     try {
       await mutateAsync({ email, role });
     } catch (error) {
@@ -78,8 +85,9 @@ const AllUsers = () => {
               <TableHead>Phone Number</TableHead>
               <TableHead>Number of Parcels Booked</TableHead>
               <TableHead>Total Spent Amount</TableHead>
-              <TableHead>Total Spent Amount</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Role</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -89,7 +97,12 @@ const AllUsers = () => {
                 <TableCell>{user.phoneNumber}</TableCell>
                 <TableCell>{user.parcelCount}</TableCell>
                 <TableCell>{user.totalSpent}</TableCell>
-                <TableCell>{user.role}</TableCell>
+                <TableCell>
+                  <Badge>{user.status}</Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge>{user.role}</Badge>
+                </TableCell>
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -102,7 +115,9 @@ const AllUsers = () => {
                         User
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => changeUserRole(user.email, "DeliveryMan")}
+                        onClick={() =>
+                          changeUserRole(user.email, "DeliveryMan")
+                        }
                       >
                         Delivery Man
                       </DropdownMenuItem>

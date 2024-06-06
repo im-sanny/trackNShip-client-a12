@@ -11,6 +11,8 @@ import MyParcel from "@/pages/Dashboard/User/MyParcel";
 import MyProfile from "@/pages/Dashboard/User/MyProfile";
 import UpdateBooking from "@/pages/Dashboard/DashPages/UpdateBooking";
 import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,34 +36,64 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <Common></Common>,
+        element: (
+          <PrivateRoute>
+            <Common></Common>
+          </PrivateRoute>
+        ),
       },
       {
         path: "book-parcel",
-        element: <BookParcel></BookParcel>,
+        element: (
+          <PrivateRoute>
+            <BookParcel></BookParcel>
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-parcel",
-        element: <MyParcel></MyParcel>,
+        element: (
+          <PrivateRoute>
+            <MyParcel></MyParcel>
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-profile",
-        element: <MyProfile></MyProfile>,
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "update-parcel/:id",
-        element: <UpdateBooking></UpdateBooking>,
+        element: (
+          <PrivateRoute>
+            <UpdateBooking></UpdateBooking>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`, ),
+          fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`),
       },
       // admin
       {
         path: "all-users",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllUsers></AllUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },
