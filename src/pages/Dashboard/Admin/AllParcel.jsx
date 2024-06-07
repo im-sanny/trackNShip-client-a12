@@ -135,7 +135,7 @@ const AllParcel = () => {
                     {new Date(parcel.currentDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>{parcel.requestedDeliveryDate}</TableCell>
-                  <TableCell>{parcel.price.$numberInt}</TableCell>
+                  <TableCell>{parcel.price}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{parcel.status}</Badge>
                   </TableCell>

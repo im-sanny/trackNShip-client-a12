@@ -8,9 +8,7 @@ import { imageUpload } from '@/api/utils';
 const MyProfile = () => {
   const [role, isLoading] = useRole();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { user, loading, updateUserProfile } = useAuth();
-
   const [profileImage, setProfileImage] = useState(null);
   const [displayName, setDisplayName] = useState(user.displayName || '');
 
