@@ -16,6 +16,8 @@ import AdminRoute from "./AdminRoute";
 import Statistics from "@/pages/Dashboard/Admin/Statistics";
 import AllParcel from "@/pages/Dashboard/Admin/AllParcel";
 import AllDeliveryman from "@/pages/Dashboard/Admin/AllDeliveryman";
+import DeliverymanRoute from "./DeliverymanRoute";
+import MyDeliveryList from "@/pages/Dashboard/Deliveryman/MyDeliveryList";
 
 const router = createBrowserRouter([
   {
@@ -125,6 +127,17 @@ const router = createBrowserRouter([
             <AdminRoute>
               <AllDeliveryman></AllDeliveryman>
             </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      // deliveryman
+      {
+        path: "my-delivery-list",
+        element: (
+          <PrivateRoute>
+            <DeliverymanRoute>
+              <MyDeliveryList></MyDeliveryList>
+            </DeliverymanRoute>
           </PrivateRoute>
         ),
       },

@@ -21,8 +21,9 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
+  const createUser = (email, password, phone, name, photoURL) => {
     setLoading(true);
+    saveUser({ email, password, phone, name, photoURL });
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -71,8 +72,9 @@ const AuthProvider = ({ children }) => {
       email: user?.email,
       role: "user",
       status: "Verified",
-      number: user?.phoneNumber,
-      name: user?.displayName,
+      image: user?.photoURL,
+      number: user?.phone,
+      name: user?.name,
     };
     const { data } = await axios.put(
       `${import.meta.env.VITE_API_URL}/user`,
@@ -87,7 +89,6 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         getToken(currentUser.email);
-        saveUser(currentUser);
       }
       setLoading(false);
     });

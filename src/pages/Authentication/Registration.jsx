@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { imageUpload } from "@/api/utils";
 
-
 // Validation schema
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -64,16 +63,15 @@ const Registration = () => {
       const image_url = await imageUpload(data.image[0]);
 
       // Registration
-      const result = await createUser(data.email, data.password,);
-      data.phoneNumber,data.displayName
+      const result = await createUser(
+        data.email,
+        data.password,
+        data.phone,
+        data.name,
+        image_url
+      );
 
-      // const userInfo = {
-      //   email: data.email,
-      //   name: data.displayName,
-      //   phone: data.phoneNumber,
-      // };
-      // axiosSecure.put("/user", userInfo);
-      // Save name, phone, and image in Firebase
+      // Save name, and image in Firebase
       await updateUserProfile(data.name, image_url);
 
       navigate("/");
