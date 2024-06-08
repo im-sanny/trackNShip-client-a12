@@ -32,12 +32,21 @@ const AllUsers = () => {
   // Fetch users data
   const {
     data: users = [],
-    isLoading,
-    refetch,
+    isLoading: isUsersLoading,
+    refetch: refetchUsers,
   } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const { data } = await axiosSecure(`/user`);
+      return data;
+    },
+  });
+
+  // Fetch bookings data
+  const { data: bookings = [], isLoading: isBookingsLoading } = useQuery({
+    queryKey: ["bookings"],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/allParcel`);
       return data;
     },
   });
@@ -51,7 +60,7 @@ const AllUsers = () => {
       return data;
     },
     onSuccess: () => {
-      refetch();
+      refetchUsers();
       toast.success("User role updated successfully");
     },
     onError: (error) => {
@@ -73,7 +82,15 @@ const AllUsers = () => {
     }
   };
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isUsersLoading || isBookingsLoading) return <h1>Loading</h1>;
+
+  // Aggregate bookings by user email
+  const bookingCounts = bookings.reduce((acc, booking) => {
+    const email = booking.normalUser.email;
+    if (!acc[email]) acc[email] = 0;
+    acc[email]++;
+    return acc;
+  }, {});
 
   const totalPages = Math.ceil(users.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -85,6 +102,12 @@ const AllUsers = () => {
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const handlePageChange = (page) => setCurrentPage(page);
 
+  const roleColors = {
+    user: "bg-blue-500 text-white",
+    deliveryman: "bg-green-500 text-white",
+    admin: "bg-red-500 text-white",
+  };
+
   return (
     <>
       <Helmet>
@@ -93,17 +116,18 @@ const AllUsers = () => {
       <div className="text-center bg-green-300 py-5">
         <h1 className="text-2xl font-bold mb-4">All Users</h1>
       </div>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 outline-lime-50">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-slate-300">
             <TableRow>
-              <TableHead>User’s Name</TableHead>
-              <TableHead>Phone Number</TableHead>
-              <TableHead>Number of Parcels Booked</TableHead>
-              <TableHead>Total Spent Amount</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Action</TableHead>
+              <TableHead className="text-black">User’s Name</TableHead>
+              <TableHead className="text-black">Phone Number</TableHead>
+              <TableHead className="text-black">
+                Number of Parcels Booked
+              </TableHead>
+              <TableHead className="text-black">Total Spent Amount</TableHead>
+              <TableHead className="text-black">Role</TableHead>
+              <TableHead className="text-black">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -111,13 +135,15 @@ const AllUsers = () => {
               <TableRow key={user.email}>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.number}</TableCell>
-                <TableCell>{user.parcelCount}</TableCell>
-                <TableCell>{user.totalSpent}</TableCell>
-                <TableCell>
-                  <Badge>{user.status}</Badge>
+                <TableCell className="text-center">
+                  {bookingCounts[user.email] || 0}
                 </TableCell>
+                <TableCell className="text-center">
+                  {user.totalSpent || "N/A"}
+                </TableCell>
+
                 <TableCell>
-                  <Badge>{user.role}</Badge>
+                  <Badge className={roleColors[user.role]}>{user.role}</Badge>
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
