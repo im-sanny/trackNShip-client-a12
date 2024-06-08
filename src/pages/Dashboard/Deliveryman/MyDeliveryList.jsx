@@ -13,10 +13,13 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FcCancel } from "react-icons/fc";
+import LocationModal from "@/components/Modal/LocationModal";
 
 const MyDeliveryList = () => {
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  const [modalData, setModalData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
   // fetch data
-
   const axiosSecure = useAxiosSecure();
   const { data: allParcel = [], isLoading } = useQuery({
     queryKey: ["bookParcel"],
@@ -25,12 +28,12 @@ const MyDeliveryList = () => {
       return data;
     },
   });
-  console.log(allParcel);
+
   if (isLoading) {
-    <span>loading</span>;
+    return <span>Loading...</span>;
   }
+
   // pagination
-  const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
   // Calculate the number of pages
@@ -59,14 +62,40 @@ const MyDeliveryList = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  const formatDateForDisplay = (date) => {
+    if (!date) return "";
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
+
+  const handleOpenModal = (parcel) => {
+    setModalData({
+      latitude: parcel.deliveryLat,
+      longitude: parcel.deliveryLon,
+    });
+    setShowLocationModal(true);
+  };
+
+  const handleClose = () => {
+    setShowLocationModal(false);
+  };
+
   return (
-    <div className="mt-0 overflow-x-auto">
+    <div className="mt-0">
       <div>
         <CardHeader className="bg-green-200 py-5">
           <CardTitle className="text-center">My Delivery List</CardTitle>
         </CardHeader>
         <div className="p-0">
-          <div className="overflow-auto">
+          <div>
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-200">
@@ -107,7 +136,9 @@ const MyDeliveryList = () => {
                     <TableCell className="font-medium">
                       {parcel.requestedDeliveryDate}
                     </TableCell>
-                    <TableCell className="font-medium">later</TableCell>
+                    <TableCell className="font-medium">
+                      {formatDateForDisplay(parcel.approximateDeliveryDate)}
+                    </TableCell>
                     <TableCell className="font-medium">
                       {parcel.receiverPhoneNumber}
                     </TableCell>
@@ -115,7 +146,11 @@ const MyDeliveryList = () => {
                       {parcel.deliveryAddress}
                     </TableCell>
                     <TableCell className="font-medium">
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleOpenModal(parcel)}
+                      >
                         View
                       </Button>
                     </TableCell>
@@ -141,7 +176,7 @@ const MyDeliveryList = () => {
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
-              <GrPrevious></GrPrevious>
+              <GrPrevious />
             </Button>
             <span className="flex space-x-2">
               {Array.from({ length: totalPages }, (_, index) => (
@@ -165,6 +200,13 @@ const MyDeliveryList = () => {
           </div>
         </div>
       </div>
+      {showLocationModal && (
+        <LocationModal
+          deliveryLat={modalData.latitude}
+          deliveryLon={modalData.longitude}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 };
