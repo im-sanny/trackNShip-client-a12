@@ -18,6 +18,7 @@ import AllParcel from "@/pages/Dashboard/Admin/AllParcel";
 import AllDeliveryman from "@/pages/Dashboard/Admin/AllDeliveryman";
 import DeliverymanRoute from "./DeliverymanRoute";
 import MyDeliveryList from "@/pages/Dashboard/Deliveryman/MyDeliveryList";
+import MyReviews from "@/pages/Dashboard/Deliveryman/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            {/* <Common></Common> */}
+            <Common></Common>
           </PrivateRoute>
         ),
       },
@@ -137,6 +138,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <DeliverymanRoute>
               <MyDeliveryList></MyDeliveryList>
+            </DeliverymanRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-reviews",
+        element: (
+          <PrivateRoute>
+            <DeliverymanRoute>
+              <MyReviews></MyReviews>
             </DeliverymanRoute>
           </PrivateRoute>
         ),
