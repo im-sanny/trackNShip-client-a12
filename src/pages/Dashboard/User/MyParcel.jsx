@@ -77,12 +77,6 @@ const MyParcel = () => {
       ? myParcel
       : myParcel.filter((parcel) => parcel.status === filterStatus);
 
-  //   const YourComponent = ({ parcel, filterStatus, myParcel }) => {
-  //     const filteredParcels =
-  //       filterStatus === "all"
-  //         ? myParcel
-  //         : myParcel.filter((parcel) => parcel.status === filterStatus);
-
   if (isLoading) return <h1>Loading</h1>;
 
   return (

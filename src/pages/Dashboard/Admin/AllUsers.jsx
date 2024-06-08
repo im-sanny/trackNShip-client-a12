@@ -58,7 +58,7 @@ const AllUsers = () => {
 
   const changeUserRole = async (email, role) => {
     if (loggedInUser.email === email) {
-      toast.error('Action not allowed: You cannot change your own role');
+      toast.error("Action not allowed: You cannot change your own role");
       return;
     }
     try {
@@ -110,19 +110,19 @@ const AllUsers = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <DropdownMenuItem
-                        onClick={() => changeUserRole(user.email, "User")}
+                        onClick={() => changeUserRole(user.email, "user")}
                       >
                         User
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() =>
-                          changeUserRole(user.email, "DeliveryMan")
+                          changeUserRole(user.email, "deliveryman")
                         }
                       >
                         Delivery Man
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => changeUserRole(user.email, "Admin")}
+                        onClick={() => changeUserRole(user.email, "admin")}
                       >
                         Admin
                       </DropdownMenuItem>
