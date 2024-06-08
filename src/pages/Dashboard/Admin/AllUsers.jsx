@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,10 +21,13 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import { GrFormNext, GrPrevious } from "react-icons/gr";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { user: loggedInUser } = useAuth();
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
 
   // Fetch users data
   const {
@@ -71,13 +75,25 @@ const AllUsers = () => {
 
   if (isLoading) return <h1>Loading</h1>;
 
+  const totalPages = Math.ceil(users.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const currentUsers = users.slice(startIndex, endIndex);
+
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handlePageChange = (page) => setCurrentPage(page);
+
   return (
     <>
       <Helmet>
         <title>Manage Users</title>
       </Helmet>
-      <div className="container mx-auto p-4">
+      <div className="text-center bg-green-300 py-5">
         <h1 className="text-2xl font-bold mb-4">All Users</h1>
+      </div>
+      <div className="container mx-auto p-4">
         <Table>
           <TableHeader>
             <TableRow>
@@ -91,10 +107,10 @@ const AllUsers = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => (
+            {currentUsers.map((user) => (
               <TableRow key={user.email}>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.phoneNumber}</TableCell>
+                <TableCell>{user.number}</TableCell>
                 <TableCell>{user.parcelCount}</TableCell>
                 <TableCell>{user.totalSpent}</TableCell>
                 <TableCell>
@@ -133,6 +149,34 @@ const AllUsers = () => {
             ))}
           </TableBody>
         </Table>
+        <div className="flex justify-center p-4 space-x-2">
+          <Button
+            size="sm"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
+            <GrPrevious />
+          </Button>
+          <span className="flex space-x-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Button
+                key={index + 1}
+                variant={currentPage === index + 1 ? "solid" : "outline"}
+                size="sm"
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Button>
+            ))}
+          </span>
+          <Button
+            size="sm"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            <GrFormNext />
+          </Button>
+        </div>
       </div>
     </>
   );
