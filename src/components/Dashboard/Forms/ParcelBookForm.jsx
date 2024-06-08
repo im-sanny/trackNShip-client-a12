@@ -34,7 +34,11 @@ const ParcelBookForm = () => {
   };
 
   const today = new Date().toISOString().split("T")[0];
-  
+
+  const generateRandomCoordinate = () => {
+    return (Math.random() * (180 - -180) + -180).toFixed(6);
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     const normalUser = {
@@ -47,11 +51,11 @@ const ParcelBookForm = () => {
       const parcelData = {
         ...data,
         normalUser,
-        // name: user.displayName,
-        // email: user.email,
         status: "pending",
         price: calculatePrice(data.parcelWeight),
         currentDate,
+        deliveryLat: generateRandomCoordinate(),
+        deliveryLon: generateRandomCoordinate(),
       };
       console.log(parcelData);
       const response = await axiosSecure.post(`/bookParcel`, parcelData);
