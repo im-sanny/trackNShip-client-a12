@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { imageUpload } from "@/api/utils";
+// import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 // Validation schema
 const schema = yup.object().shape({
@@ -45,6 +46,7 @@ const Registration = () => {
     createUser,
     signInWithGoogle,
     updateUserProfile,
+    saveUser
   } = useAuth();
 
   const navigate = useNavigate();
@@ -88,7 +90,21 @@ const Registration = () => {
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      await signInWithGoogle();
+      const result = await signInWithGoogle();
+
+      // Generate a random phone number
+      const randomPhoneNumber = generateRandomPhoneNumber();
+
+      // Update user profile with the random phone number
+      const userInfo = {
+        email: result.user.email,
+        phone: randomPhoneNumber,
+        name: result.user.displayName,
+        photoURL: result.user.photoURL,
+      };
+
+      await saveUser(userInfo);
+
       navigate("/");
       toast.success("Registration successful");
     } catch (error) {
@@ -99,6 +115,13 @@ const Registration = () => {
     }
   };
 
+  // Function to generate a random phone number
+  const generateRandomPhoneNumber = () => {
+    const areaCode = Math.floor(100 + Math.random() * 900);
+    const firstPart = Math.floor(100 + Math.random() * 900);
+    const secondPart = Math.floor(1000 + Math.random() * 9000);
+    return `${areaCode}-${firstPart}-${secondPart}`;
+  };
   return (
     <div>
       <div className="flex justify-center items-center">

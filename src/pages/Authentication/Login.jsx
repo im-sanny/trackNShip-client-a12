@@ -10,12 +10,18 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 
 const Login = () => {
-  const { signInWithGoogle, loading, setLoading, signIn, resetPassword } =
-    useAuth();
+  const {
+    signInWithGoogle,
+    loading,
+    setLoading,
+    signIn,
+    resetPassword,
+    saveUser,
+  } = useAuth();
   const location = useLocation();
   const Form = location?.state || "/";
   const navigate = useNavigate();
-  const [email, setEmail] = useState()
+  const [email, setEmail] = useState();
 
   const handleLogin = async (e) => {
     setLoading(true);
@@ -36,12 +42,27 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      await signInWithGoogle();
+      const result = await signInWithGoogle();
+
+      // Generate a random phone number
+      const randomPhoneNumber = generateRandomPhoneNumber();
+
+      // Update user profile with the random phone number
+      const userInfo = {
+        email: result.user.email,
+        phone: randomPhoneNumber,
+        name: result.user.displayName,
+        photoURL: result.user.photoURL,
+      };
+
+      await saveUser(userInfo);
+
       navigate(Form);
-      toast.success("Login successful");
+      toast.success("Registration successful");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -50,12 +71,22 @@ const Login = () => {
     }
   };
 
+  // Function to generate a random phone number
+  const generateRandomPhoneNumber = () => {
+    const areaCode = Math.floor(100 + Math.random() * 900);
+    const firstPart = Math.floor(100 + Math.random() * 900);
+    const secondPart = Math.floor(1000 + Math.random() * 9000);
+    return `${areaCode}-${firstPart}-${secondPart}`;
+  };
+
   const handleResetPassword = async () => {
     if (!email) return toast.error("Please write your email first!");
     try {
       await resetPassword(email);
-      toast.success('Request Successful, Check your email for further process...')
-      setLoading(false)
+      toast.success(
+        "Request Successful, Check your email for further process..."
+      );
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -89,7 +120,7 @@ const Login = () => {
                 <Input
                   id="email"
                   type="email"
-                  onBlur={e => setEmail(e.target.value)}
+                  onBlur={(e) => setEmail(e.target.value)}
                   name="email"
                   placeholder="m@example.com"
                   required
@@ -107,7 +138,7 @@ const Login = () => {
                   required
                 />
                 <span
-                  onClick={handleResetPassword} 
+                  onClick={handleResetPassword}
                   className="flex text-start text-xs hover:underline hover:text-rose-500 text-gray-400 cursor-pointer"
                 >
                   Forgot password?
