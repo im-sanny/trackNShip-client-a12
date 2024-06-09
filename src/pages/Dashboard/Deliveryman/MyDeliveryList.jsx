@@ -224,7 +224,11 @@ const MyDeliveryList = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleCancel(parcel._id)}
-                        disabled={cancelParcelMutation.isLoading}
+                        disabled={
+                          parcel.status === "cancelled" ||
+                          parcel.status === "delivered" ||
+                          cancelParcelMutation.isLoading
+                        }
                       >
                         <FcCancel />
                       </Button>
@@ -234,7 +238,11 @@ const MyDeliveryList = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleDeliver(parcel._id)}
-                        disabled={deliverParcelMutation.isLoading}
+                        disabled={
+                          parcel.status === "delivered" ||
+                          parcel.status === "cancelled" ||
+                          deliverParcelMutation.isLoading
+                        }
                       >
                         Delivered
                       </Button>

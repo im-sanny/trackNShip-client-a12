@@ -32,6 +32,7 @@ import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import ReviewModal from "@/components/Modal/ReviewModal";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -59,7 +60,7 @@ const MyParcel = () => {
           text: "Your parcel has been cancelled.",
           icon: "success",
         });
-        refetch()
+        refetch();
       }
     } catch (error) {
       Swal.fire({
@@ -84,7 +85,7 @@ const MyParcel = () => {
       <main className="grid overflow-x-auto md:overflow-hidden flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:pt-5">
         <Tabs defaultValue="all">
           <div className="flex items-center">
-            <TabsList>
+            {/* <TabsList>
               <TabsTrigger value="all" onClick={() => setFilterStatus("all")}>
                 All
               </TabsTrigger>
@@ -118,7 +119,7 @@ const MyParcel = () => {
               >
                 Cancelled
               </TabsTrigger>
-            </TabsList>
+            </TabsList> */}
             <div className="ml-auto flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -159,12 +160,6 @@ const MyParcel = () => {
                   </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button size="sm" variant="outline" className="h-8 gap-1">
-                <File className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  Export
-                </span>
-              </Button>
               <Link to={"/dashboard/book-parcel"}>
                 <Button size="sm" className="h-8 gap-1">
                   <PlusCircle className="h-3.5 w-3.5" />
@@ -217,11 +212,37 @@ const MyParcel = () => {
                           {parcel.parcelType}
                         </TableCell>
                         <TableCell>{parcel.requestedDeliveryDate}</TableCell>
-                        <TableCell>{parcel.approximateDeliveryDate}</TableCell>
+                        <TableCell>
+                          {parcel.approximateDeliveryDate
+                            ? new Date(
+                                parcel.approximateDeliveryDate
+                              ).toLocaleDateString()
+                            : "N/A"}
+                        </TableCell>
                         <TableCell>
                           {new Date(parcel.currentDate).toLocaleDateString()}
                         </TableCell>
-                        <TableCell>{parcel.deliveryManId || "N/A"}</TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                                // disabled={parcel.status !== "pending"}
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuItem>
+                                {parcel.deliveryManID || "N/A"}
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+
                         <TableCell>
                           <Badge variant="outline">{parcel.status}</Badge>
                         </TableCell>
@@ -251,20 +272,20 @@ const MyParcel = () => {
                               <DropdownMenuItem
                                 onClick={() => {
                                   Swal.fire({
-                                    title: 'Are you sure?',
+                                    title: "Are you sure?",
                                     text: "You won't be able to revert this!",
-                                    icon: 'warning',
+                                    icon: "warning",
                                     showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!',
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes, delete it!",
                                   }).then((result) => {
                                     if (result.isConfirmed) {
                                       handleCancel(parcel._id);
                                     }
                                   });
                                 }}
-                                disabled={parcel.status !== 'pending'}
+                                disabled={parcel.status !== "pending"}
                               >
                                 Cancel
                               </DropdownMenuItem>
@@ -273,9 +294,11 @@ const MyParcel = () => {
                         </TableCell>
                         <TableCell>
                           {parcel.status === "delivered" && (
-                            <Button size="sm" variant="outline">
-                              Review
-                            </Button>
+                            <ReviewModal
+                              deliveryManID={parcel.deliveryManID}
+                              photoURl={parcel.normalUser.image}
+                              name={parcel.normalUser.name}
+                            />
                           )}
                         </TableCell>
                         <TableCell>
