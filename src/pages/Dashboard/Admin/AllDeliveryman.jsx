@@ -41,8 +41,8 @@ const AllDeliveryman = () => {
         <TableBody>
           {deliveryMen.map((deliveryman, index) => (
             <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-              <td className="border px-4 py-2">{deliveryman.email}</td>
-              <td className="border px-4 py-2">{deliveryman.phoneNumber}</td>
+              <td className="border px-4 py-2">{deliveryman.name}</td>
+              <td className="border px-4 py-2">{deliveryman.number}</td>
               <td className="border px-4 py-2">
                 {deliveryman.numParcelsDelivered}
               </td>

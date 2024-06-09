@@ -15,12 +15,13 @@ const ReviewModal = ({ deliveryManID, photoURl, name }) => {
     formState: { errors },
   } = useForm();
   const [isOpen, setIsOpen] = useState(false);
-
+  const currentDate = new Date().toLocaleDateString();
   const onSubmit = async (data) => {
     console.log("Form Data:", data);
     try {
       const reviewData = {
         ...data,
+        currentDate
       };
       console.log(reviewData);
       const response = await axiosSecure.post(`/reviews`, reviewData);

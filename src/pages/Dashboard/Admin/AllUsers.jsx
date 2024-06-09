@@ -132,8 +132,8 @@ const AllUsers = () => {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.email}>
-                <TableCell>{user.email}</TableCell>
+              <TableRow key={user._id}>
+                <TableCell>{user.name}</TableCell>
                 <TableCell>{user.number}</TableCell>
                 <TableCell className="text-center">
                   {bookingCounts[user.email] || 0}
