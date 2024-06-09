@@ -10,17 +10,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FcCancel } from "react-icons/fc";
 import LocationModal from "@/components/Modal/LocationModal";
+import Swal from "sweetalert2";
 
 const MyDeliveryList = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [modalData, setModalData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  // fetch data
+
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
   const { data: allParcel = [], isLoading } = useQuery({
     queryKey: ["bookParcel"],
     queryFn: async () => {
@@ -29,34 +32,96 @@ const MyDeliveryList = () => {
     },
   });
 
+  const cancelParcelMutation = useMutation({
+    mutationFn: (parcelId) => axiosSecure.patch(`/cancelParcel/${parcelId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["bookParcel"]);
+      Swal.fire({
+        title: "Cancelled!",
+        text: "The parcel has been cancelled.",
+        icon: "success",
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to cancel the parcel.",
+        icon: "error",
+      });
+    },
+  });
+
+  const deliverParcelMutation = useMutation({
+    mutationFn: (parcelId) => axiosSecure.patch(`/deliverParcel/${parcelId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["bookParcel"]);
+      Swal.fire({
+        title: "Delivered!",
+        text: "The parcel has been delivered.",
+        icon: "success",
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to deliver the parcel.",
+        icon: "error",
+      });
+    },
+  });
+
+  const handleCancel = (parcelId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((secondResult) => {
+      if (secondResult.isConfirmed) {
+        cancelParcelMutation.mutate(parcelId);
+      }
+    });
+  };
+
+  const handleDeliver = (parcelId) => {
+    Swal.fire({
+      title: "Confirm delivery",
+      text: "Are you sure you want to deliver this parcel?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, deliver it!",
+    }).then((secondResult) => {
+      if (secondResult.isConfirmed) {
+        deliverParcelMutation.mutate(parcelId);
+      }
+    });
+  };
+
   if (isLoading) {
     return <span>Loading...</span>;
   }
 
-  // pagination
   const rowsPerPage = 5;
-
-  // Calculate the number of pages
   const totalPages = Math.ceil(allParcel.length / rowsPerPage);
-
-  // Calculate the start and end indices of the rows for the current page
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = allParcel.slice(startIndex, endIndex);
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Handle next page
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  // Handle previous page
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -95,7 +160,7 @@ const MyDeliveryList = () => {
           <CardTitle className="text-center">My Delivery List</CardTitle>
         </CardHeader>
         <div className="p-0">
-          <div>
+          <div className="overflow-auto" style={{ maxHeight: "400px" }}>
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-200">
@@ -155,12 +220,22 @@ const MyDeliveryList = () => {
                       </Button>
                     </TableCell>
                     <TableCell className="font-medium">
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleCancel(parcel._id)}
+                        disabled={cancelParcelMutation.isLoading}
+                      >
                         <FcCancel />
                       </Button>
                     </TableCell>
                     <TableCell className="font-medium">
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeliver(parcel._id)}
+                        disabled={deliverParcelMutation.isLoading}
+                      >
                         Delivered
                       </Button>
                     </TableCell>
