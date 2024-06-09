@@ -22,36 +22,36 @@ const TopDeliveryman = () => {
               />
             </div>
             <CardTitle>Johnson</CardTitle>
-            <CardDescription>Number of parcel Delivered: 90</CardDescription>
-            <CardDescription>Rating:</CardDescription>
+            <CardDescription>Number of parcel Delivered: 6</CardDescription>
+            <CardDescription>Rating: 5</CardDescription>
           </CardHeader>
         </Card>
         <Card className="text-center w-full">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
-                src="https://i.ibb.co/FhhZkbn/student-3.png"
+                src="https://i.ibb.co/9H2c0Cn/boy-1.png"
                 alt=""
                 className="h-20 "
               />
             </div>
-            <CardTitle>Johnson</CardTitle>
-            <CardDescription>Number of parcel Delivered: 90</CardDescription>
-            <CardDescription>Rating:</CardDescription>
+            <CardTitle>Tom</CardTitle>
+            <CardDescription>Number of parcel Delivered: 3</CardDescription>
+            <CardDescription>Rating: 4.9</CardDescription>
           </CardHeader>
         </Card>
         <Card className="text-center w-full">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
-                src="https://i.ibb.co/FhhZkbn/student-3.png"
+                src="https://i.ibb.co/cJhWzqt/student-1.png"
                 alt=""
                 className="h-20 "
               />
             </div>
-            <CardTitle>Johnson</CardTitle>
-            <CardDescription>Number of parcel Delivered: 90</CardDescription>
-            <CardDescription>Rating:</CardDescription>
+            <CardTitle>James</CardTitle>
+            <CardDescription>Number of parcel Delivered: 2</CardDescription>
+            <CardDescription>Rating: 4.8</CardDescription>
           </CardHeader>
         </Card>
       </div>
