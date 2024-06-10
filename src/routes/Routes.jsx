@@ -20,6 +20,7 @@ import DeliverymanRoute from "./DeliverymanRoute";
 import MyDeliveryList from "@/pages/Dashboard/Deliveryman/MyDeliveryList";
 import MyReviews from "@/pages/Dashboard/Deliveryman/MyReviews";
 import PaymentPage from "@/pages/Dashboard/DashPages/PaymentPage";
+import ProfileAll from "@/pages/Dashboard/Common/ProfileAll";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Common></Common>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile-all",
+        element: (
+          <PrivateRoute>
+            <ProfileAll></ProfileAll>
           </PrivateRoute>
         ),
       },

@@ -21,7 +21,7 @@ const MyReviews = () => {
 
   return (
     <>
-      <CardHeader className="bg-green-300 text-2xl font-semibold text-center">
+      <CardHeader className="bg-gray-100 py-5 text-3xl font-bold text-center">
         My Reviews
       </CardHeader>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mx-5 mt-4">

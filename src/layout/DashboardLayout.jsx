@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className="relative min-h-screen md:flex">
+    <div className="relative min-h-screen md:flex ">
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar/>
 
       {/* Outlet --> Dynamic content */}
       {/* <div className=" md:ml-64"></div> */}

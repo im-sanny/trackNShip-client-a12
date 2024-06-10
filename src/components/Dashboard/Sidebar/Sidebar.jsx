@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { Bell, Home, LogOut, Menu } from "lucide-react";
+import { Bell, LogOut, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,10 +7,10 @@ import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
 import toast from "react-hot-toast";
-import Navs from "./Navs/Navs";
 import DeliverymanNav from "./Navs/DeliverymanNav";
 import UserNav from "./Navs/UserNav";
 import AdminNav from "./Navs/AdminNav";
+import { CgProfile } from "react-icons/cg";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -30,8 +30,7 @@ const Sidebar = () => {
 
   const navLinks = (
     <>
-      <nav className="grid items-start px-2 space-y-2 text-sm font-medium lg:px-4">
-        {/* <Navs label={"Common"} address={"/dashboard"} icon={Home}></Navs> */}
+      <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
         {role === "user" && <UserNav></UserNav>}
         {role === "deliveryman" && <DeliverymanNav></DeliverymanNav>}
         {role === "admin" && <AdminNav></AdminNav>}
@@ -40,9 +39,9 @@ const Sidebar = () => {
   );
   return (
     <>
-      <div className="grid lg:min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+      <div className="grid lg:min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] ">
         <div className="hidden border-r bg-muted/40 md:block">
-          <div className="flex h-full max-h-screen flex-col gap-2">
+          <div className="flex bg-slate-500 h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link to={"/"} className="flex items-center gap-2 font-semibold">
                 <div className="font-bold flex items-center gap-1">
@@ -61,13 +60,23 @@ const Sidebar = () => {
             </div>
             <div className="flex-1">{navLinks}</div>
             <Separator></Separator>
+            {(role === "admin" || role === "deliveryman") && (
+              <div className="px-4">
+                <button className="flex w-full rounded-lg items-center px-4 py-2 hover:bg-gray-300 hover:text-gray-700 transition-colors duration-300 transform">
+                  <CgProfile className="w-5 h-5" />
+                  <Link to={"/dashboard/profile-all"}>
+                    <span className="mx-4 font-medium">Profile</span>
+                  </Link>
+                </button>
+              </div>
+            )}
+
             <div className="lg:my-auto px-4 pb-6">
               <button
                 onClick={handleLogOut}
-                className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+                className="flex w-full rounded-lg items-center px-4 py-2 mt-1 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
               >
                 <LogOut className="w-5 h-5" />
-
                 <span className="mx-4 font-medium">Logout</span>
               </button>
             </div>
@@ -86,7 +95,7 @@ const Sidebar = () => {
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="flex flex-col">
+              <SheetContent side="left" className="flex flex-col bg-slate-500">
                 <Link to={"/"} className="mx-auto gap-2 font-semibold">
                   <div className="font-bold flex items-center gap-1">
                     <img
@@ -99,13 +108,23 @@ const Sidebar = () => {
                 </Link>
                 {navLinks}
                 <Separator></Separator>
-                <div className="lg:my-auto px-2">
+                {(role === "admin" || role === "deliveryman") && (
+                  <div className="px-4">
+                    <button className="flex w-full rounded-lg items-center px-4 py-2 hover:bg-gray-300 hover:text-gray-700 transition-colors duration-300 transform">
+                      <CgProfile className="w-5 h-5" />
+                      <Link to={"/dashboard/profile-all"}>
+                        <span className="mx-4 font-medium">Profile</span>
+                      </Link>
+                    </button>
+                  </div>
+                )}
+
+                <div className="lg:my-auto px-4 pb-6">
                   <button
                     onClick={handleLogOut}
-                    className="flex w-full rounded-lg items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+                    className="flex w-full rounded-lg items-center px-4 py-2 mt-1 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
                   >
                     <LogOut className="w-5 h-5" />
-
                     <span className="mx-4 font-medium">Logout</span>
                   </button>
                 </div>

@@ -3,7 +3,7 @@ import Navs from "./Navs";
 
 const UserNav = () => {
   return (
-    <div>
+    <div className="space-y-2">
       <Navs
         label={"Book Parcel"}
         address={"book-parcel"}
