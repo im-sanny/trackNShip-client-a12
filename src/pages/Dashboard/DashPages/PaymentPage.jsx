@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { CardElement } from "@stripe/react-stripe-js";
@@ -91,9 +92,9 @@ const PaymentPage = () => {
   };
 
   return (
-    <div>
+    <div className='grid items-center my-auto'>
       {showConfetti && <Confetti />}
-      <div>Payment Please pay to place order!</div>
+      <div className="text-center font-semibold my-3">Payment Please pay to place order!</div>
       <div>
         {!isPaid ? (
           <div>
@@ -105,7 +106,7 @@ const PaymentPage = () => {
             </Elements>
           </div>
         ) : (
-          <div>Payment Successful!</div>
+          <div className="text-center">Payment Successful!</div>
         )}
       </div>
     </div>
@@ -117,40 +118,42 @@ const InjectedForm = ({ handleSubmit, handleCancel }) => {
   const elements = useElements();
 
   return (
-    <form onSubmit={(event) => handleSubmit(event, stripe, elements)}>
-      <CardElement
-        className="p-4 rounded-md bg-lime-50"
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+    <div className=" mx-auto">
+      <form onSubmit={(event) => handleSubmit(event, stripe, elements)}>
+        <CardElement
+          className="p-4 rounded-md bg-lime-50 mx-auto w-[400px]"
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <div className="text-center">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-sm mt-5 mr-3"
-        >
-          Pay
-        </button>
-        <button
-          type="button"
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded btn-sm mt-5"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
+          }}
+        />
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-sm mt-5 mr-3"
+          >
+            Pay
+          </button>
+          <button
+            type="button"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded btn-sm mt-5"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

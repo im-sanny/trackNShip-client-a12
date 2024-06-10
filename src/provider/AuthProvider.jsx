@@ -14,6 +14,7 @@ import {
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
 import { axiosCommon } from "@/hooks/useAxiosCommon";
+
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -22,52 +23,50 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password, phone, name, photoURL) => {
+  // Create user and save to backend
+  const createUser = async (email, password, phone, name, photoURL) => {
     setLoading(true);
-    saveUser({ email, password, phone, name, photoURL });
-    return createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
+    await saveUser({ email, phone, name, photoURL });
   };
 
-  const signIn = (email, password) => {
+  // Sign in with email and password
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signInWithGoogle = () => {
+  // Sign in with Google
+  const signInWithGoogle = async () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider);
   };
 
+  // Reset password
   const resetPassword = (email) => {
     setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
 
+  // Log out and clear token
   const logOut = async () => {
     setLoading(true);
     await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
       withCredentials: true,
     });
-    return signOut(auth);
+    await signOut(auth);
+    localStorage.removeItem("access-token");
   };
 
+  // Update user profile
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
     });
   };
-  // Get token from server
-  // const getToken = async (email) => {
-  //   const { data } = await axios.post(
-  //     `${import.meta.env.VITE_API_URL}/jwt`,
-  //     { email },
-  //     { withCredentials: true }
-  //   );
-  //   return data;
-  // };
 
-  // save user
+  // Save user to backend
   const saveUser = async (user) => {
     const currentUser = {
       email: user?.email,
@@ -84,26 +83,26 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
-  // onAuthStateChange
+  // On auth state change, get JWT and save to localStorage
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-
       if (currentUser) {
         const userInfo = { email: currentUser.email };
-        axiosCommon.post("/jwt", userInfo).then((res) => {
-          if (res.data.token) {
-            localStorage.setItem("access-token", res.data.token);
+        try {
+          const { data } = await axiosCommon.post("/jwt", userInfo);
+          if (data.token) {
+            localStorage.setItem("access-token", data.token);
           }
-        });
+        } catch (error) {
+          console.error("Error fetching JWT:", error);
+        }
       } else {
         localStorage.removeItem("access-token");
       }
       setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
@@ -125,8 +124,7 @@ const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  // Array of children.
-  children: PropTypes.array,
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthProvider;
