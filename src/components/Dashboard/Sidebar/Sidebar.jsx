@@ -70,7 +70,6 @@ const Sidebar = () => {
                 </button>
               </div>
             )}
-
             <div className="lg:my-auto px-4 pb-6">
               <button
                 onClick={handleLogOut}
@@ -118,7 +117,6 @@ const Sidebar = () => {
                     </button>
                   </div>
                 )}
-
                 <div className="lg:my-auto px-4 pb-6">
                   <button
                     onClick={handleLogOut}
