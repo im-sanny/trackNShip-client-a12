@@ -24,11 +24,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import { ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -38,7 +38,6 @@ const MyParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [filterStatus, setFilterStatus] = useState("all");
-
   const {
     data: myParcel = [],
     isLoading,
@@ -85,41 +84,6 @@ const MyParcel = () => {
       <main className="grid overflow-x-auto md:overflow-hidden flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:pt-5">
         <Tabs defaultValue="all">
           <div className="flex items-center">
-            {/* <TabsList>
-              <TabsTrigger value="all" onClick={() => setFilterStatus("all")}>
-                All
-              </TabsTrigger>
-              <TabsTrigger
-                value="pending"
-                onClick={() => setFilterStatus("pending")}
-              >
-                Pending
-              </TabsTrigger>
-              <TabsTrigger
-                value="on the way"
-                onClick={() => setFilterStatus("on the way")}
-              >
-                On the Way
-              </TabsTrigger>
-              <TabsTrigger
-                value="delivered"
-                onClick={() => setFilterStatus("delivered")}
-              >
-                Delivered
-              </TabsTrigger>
-              <TabsTrigger
-                value="returned"
-                onClick={() => setFilterStatus("returned")}
-              >
-                Returned
-              </TabsTrigger>
-              <TabsTrigger
-                value="cancelled"
-                onClick={() => setFilterStatus("cancelled")}
-              >
-                Cancelled
-              </TabsTrigger>
-            </TabsList> */}
             <div className="ml-auto flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -285,7 +249,9 @@ const MyParcel = () => {
                                     }
                                   });
                                 }}
-                                disabled={parcel.status !== "pending"}
+                                disabled={
+                                  parcel.status !== "pending" && "on the way"
+                                }
                               >
                                 Cancel
                               </DropdownMenuItem>
@@ -302,10 +268,19 @@ const MyParcel = () => {
                           )}
                         </TableCell>
                         <TableCell>
-                          {parcel.status === "pending" && (
-                            <Button size="sm" variant="outline">
-                              Pay
-                            </Button>
+                          {parcel.status !== "cancelled" && (
+                            <Link to={`/dashboard/payment/${parcel._id}`}>
+                              <button
+                                disabled={parcel.price === "paid"}
+                                className={`bg-${
+                                  parcel.price === "paid" ? "gray" : "blue"
+                                }-500 hover:bg-${
+                                  parcel.price === "paid" ? "gray" : "blue"
+                                }-700 text-white font-bold py-2 px-4 rounded btn-sm`}
+                              >
+                                {parcel.price === "paid" ? "Paid" : "Pay"}
+                              </button>
+                            </Link>
                           )}
                         </TableCell>
                       </TableRow>

@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 const ReviewModal = ({ deliveryManID, photoURl, name }) => {
   const axiosSecure = useAxiosSecure();
-  // const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,

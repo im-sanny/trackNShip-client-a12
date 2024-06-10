@@ -11,23 +11,27 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-const DeliverymanModal = ({modalHandler}) => {
+const DeliverymanModal = ({ modalHandler }) => {
   return (
     <div>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline" >Be a Deliveryman</Button>
+          <Button variant="outline">Be a Deliveryman</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>empty</AlertDialogTitle>
+            <AlertDialogTitle>Application to be Deliveryman</AlertDialogTitle>
             <AlertDialogDescription>
-              feature will come later. sorry for inconvenience
+              If you are interested to be deliveryman in TrackNShip, then please
+              click the <span className="font-bold">Continue</span> button for
+              confirmation of Apply! Thanks!
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={modalHandler}>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={modalHandler}>
+              Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

@@ -19,6 +19,7 @@ import AllDeliveryman from "@/pages/Dashboard/Admin/AllDeliveryman";
 import DeliverymanRoute from "./DeliverymanRoute";
 import MyDeliveryList from "@/pages/Dashboard/Deliveryman/MyDeliveryList";
 import MyReviews from "@/pages/Dashboard/Deliveryman/MyReviews";
+import PaymentPage from "@/pages/Dashboard/DashPages/PaymentPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
+    errorElement: <ErrorPage></ErrorPage>,
     element: (
       <PrivateRoute>
         <DashboardLayout></DashboardLayout>
@@ -79,6 +81,16 @@ const router = createBrowserRouter([
             <MyProfile></MyProfile>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "payment/:id",
+        element: (
+          <PrivateRoute>
+            <PaymentPage></PaymentPage>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/getUpdate/${params.id}`),
       },
       {
         path: "update-parcel/:id",
