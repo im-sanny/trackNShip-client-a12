@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, Moon } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import {
   DropdownMenu,
@@ -15,16 +15,38 @@ import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import DeliverymanModal from "@/components/Modal/DeliverymanModal";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const axiosSecure = useAxiosSecure();
   const { user, logOut } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const [theme, setTheme] = useState(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      return storedTheme;
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    } else {
+      return "light";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleThemeSwitch = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
   const handleLogOut = async () => {
     try {
       await logOut();
       toast.success("LogOut successful");
-      navigate('/')
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     }
@@ -32,12 +54,6 @@ const Navbar = () => {
 
   const modalHandler = async () => {
     console.log("im interested to be deliveryman");
-
-    // if (!user || !user.email) {
-    //   toast.error("You need to be logged in to make this request.");
-    //   return;
-    // }
-
     try {
       const currentUser = {
         email: user?.email,
@@ -147,9 +163,11 @@ const Navbar = () => {
         <nav className="hidden flex-col justify-center w-full gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           {navLinks}
         </nav>
+        <button onClick={handleThemeSwitch}>
+          {theme === "dark" ? <Sun /> : <Moon />}
+        </button>
 
         <div className="flex justify-end  lg:w- items-center gap-2 md:ml-auto md:gap-2 lg:gap-4">
-          <Moon></Moon>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">

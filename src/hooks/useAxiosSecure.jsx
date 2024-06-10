@@ -7,11 +7,13 @@ export const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
+
 const useAxiosSecure = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
-    axiosSecure.interceptors.response.use(
+    const interceptor = axiosSecure.interceptors.response.use(
       (res) => {
         return res;
       },
@@ -24,7 +26,12 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
+
+    return () => {
+      axiosSecure.interceptors.response.eject(interceptor);
+    };
   }, [logOut, navigate]);
+
   return axiosSecure;
 };
 

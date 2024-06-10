@@ -53,10 +53,10 @@ const Login = () => {
 
       // Update user profile with the random phone number
       const userInfo = {
-        email: result.user.email,
+        email: result?.user?.email,
         phone: randomPhoneNumber,
-        name: result.user.displayName,
-        photoURL: result.user.photoURL,
+        name: result?.user?.displayName,
+        photoURL: result?.user?.photoURL,
       };
 
       await saveUser(userInfo);
