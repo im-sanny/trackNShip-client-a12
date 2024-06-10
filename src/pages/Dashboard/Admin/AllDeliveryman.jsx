@@ -26,6 +26,10 @@ const AllDeliveryman = () => {
   };
 
   return (
+    <>
+    <div className="text-center bg-gray-100 py-5">
+        <h1 className="text-black text-3xl font-bold mb-">All Deliveryman</h1>
+      </div>
     <div className="shadow-md rounded-lg overflow-auto">
       <Table className="w-full">
         <TableHeader>
@@ -52,6 +56,7 @@ const AllDeliveryman = () => {
         </TableBody>
       </Table>
     </div>
+    </>
   );
 };
 

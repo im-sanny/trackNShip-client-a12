@@ -74,7 +74,7 @@ const ParcelBookForm = () => {
   return (
     <>
       <div className=" mx-auto ">
-        <h1 className="text-2xl font-bold mb-4 text-center bg-green-200 p-2 px-0 w-full">
+        <h1 className="text-center font-bold text-3xl mb-4 bg-gray-100 py-2 px-0 w-full ">
           Book a Parcel
         </h1>
         <form

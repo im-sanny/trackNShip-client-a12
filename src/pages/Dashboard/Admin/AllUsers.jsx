@@ -113,8 +113,8 @@ const AllUsers = () => {
       <Helmet>
         <title>Manage Users</title>
       </Helmet>
-      <div className="text-center bg-green-300 py-5">
-        <h1 className="text-2xl font-bold mb-4">All Users</h1>
+      <div className="text-center bg-gray-100 py-5">
+        <h1 className="text-black text-3xl font-bold mb-">All Users</h1>
       </div>
       <div className="container mx-auto p-4 outline-lime-50">
         <Table>

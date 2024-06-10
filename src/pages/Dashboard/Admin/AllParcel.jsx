@@ -131,8 +131,8 @@ const AllParcel = () => {
   return (
     <>
       <Card>
-        <CardHeader className="bg-green-300 mb-2">
-          <CardTitle className="text-center mb-2">All Parcel</CardTitle>
+        <CardHeader className="bg-gray-100 py-3 mb-1">
+          <CardTitle className="text-center text-black font-bold text-3xl">All Parcel</CardTitle>
           <div className="flex justify-center gap-4">
             <Popover>
               <PopoverTrigger asChild>
