@@ -2,6 +2,7 @@ import { axiosSecure } from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ApexCharts from "react-apexcharts";
 import dayjs from "dayjs";
+import Loading from "@/components/Loading/Loading";
 
 const Statistics = () => {
   // Fetch parcel data
@@ -14,7 +15,11 @@ const Statistics = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loading></Loading>
+      </div>
+    );
   }
 
   // Process data to get counts for bookings and deliveries per date

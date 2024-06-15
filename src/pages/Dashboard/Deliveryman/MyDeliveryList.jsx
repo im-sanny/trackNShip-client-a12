@@ -15,6 +15,7 @@ import { useState } from "react";
 import { FcCancel } from "react-icons/fc";
 import LocationModal from "@/components/Modal/LocationModal";
 import Swal from "sweetalert2";
+import Loading from "@/components/Loading/Loading";
 
 const MyDeliveryList = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -31,6 +32,7 @@ const MyDeliveryList = () => {
       return data;
     },
   });
+  console.log(allParcel);
 
   const cancelParcelMutation = useMutation({
     mutationFn: (parcelId) => axiosSecure.patch(`/cancelParcel/${parcelId}`),
@@ -103,7 +105,7 @@ const MyDeliveryList = () => {
   };
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <span><Loading></Loading></span>;
   }
 
   const rowsPerPage = 5;

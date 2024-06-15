@@ -33,6 +33,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import ReviewModal from "@/components/Modal/ReviewModal";
+import Loading from "@/components/Loading/Loading";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -77,7 +78,7 @@ const MyParcel = () => {
       ? myParcel
       : myParcel.filter((parcel) => parcel.status === filterStatus);
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isLoading) return <div><Loading></Loading></div>;
 
   return (
     <>

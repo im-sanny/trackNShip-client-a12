@@ -18,17 +18,17 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const response1 = await axiosSecure.get("/allParcel");
-        const response2 = await axiosSecure.get("/user");
+        const response1 = await axiosSecure?.get("/allParcel");
+        const response2 = await axiosSecure?.get("/user");
 
-        setTotalParcelsBooked(response1.data.length);
+        setTotalParcelsBooked(response1?.data?.length);
 
-        const deliveredParcels = response1.data.filter(
-          (parcel) => parcel.status === "delivered"
+        const deliveredParcels = response1?.data?.filter(
+          (parcel) => parcel?.status === "delivered"
         );
-        setTotalParcelsDelivered(deliveredParcels.length);
+        setTotalParcelsDelivered(deliveredParcels?.length);
 
-        setTotalUsers(response2.data.length);
+        setTotalUsers(response2?.data?.length);
       } catch (error) {
         console.error("Error fetching statistics:", error);
       }

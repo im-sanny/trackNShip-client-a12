@@ -49,13 +49,26 @@ const AuthProvider = ({ children }) => {
   };
 
   // Log out and clear token
+  // const logOut = async () => {
+  //   setLoading(true);
+  //   await signOut(auth);
+  //   localStorage.removeItem("access-token");
+  // };
+
   const logOut = async () => {
-    setLoading(true);
-    await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-      withCredentials: true,
-    });
-    await signOut(auth);
-    localStorage.removeItem("access-token");
+    try {
+      setLoading(true);
+      await signOut(auth);
+
+      // Remove the token from local storage
+      localStorage.removeItem("access-token");
+
+      // Optionally navigate to the login page or home page
+    } catch (error) {
+      console.error("Error during logout:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Update user profile

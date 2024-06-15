@@ -32,6 +32,7 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import toast from "react-hot-toast";
+import Loading from "@/components/Loading/Loading";
 
 const AllParcel = () => {
   const axiosSecure = useAxiosSecure();
@@ -125,14 +126,21 @@ const AllParcel = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <p>
+        <Loading></Loading>
+      </p>
+    );
   if (error) return <p>Error loading data: {error.message}</p>;
 
   return (
     <>
       <Card>
         <CardHeader className="bg-gray-100 py-3 mb-1">
-          <CardTitle className="text-center text-black font-bold text-3xl">All Parcel</CardTitle>
+          <CardTitle className="text-center text-black font-bold text-3xl">
+            All Parcel
+          </CardTitle>
           <div className="flex justify-center gap-4">
             <Popover>
               <PopoverTrigger asChild>

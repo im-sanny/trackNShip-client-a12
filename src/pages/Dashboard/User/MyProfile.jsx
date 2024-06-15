@@ -4,6 +4,7 @@ import useRole from "@/hooks/useRole";
 import { Helmet } from "react-helmet-async";
 import toast from 'react-hot-toast';
 import { imageUpload } from '@/api/utils';
+import Loading from '@/components/Loading/Loading';
 
 const MyProfile = () => {
   const [role, isLoading] = useRole();
@@ -42,8 +43,8 @@ const MyProfile = () => {
 
   if (loading || isLoading)
     return (
-      <span className="loader flex justify-center items-center my-auto">
-        Loading...
+      <span className="">
+       <Loading></Loading>
       </span>
     );
 

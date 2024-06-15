@@ -22,6 +22,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { GrFormNext, GrPrevious } from "react-icons/gr";
+import Loading from "@/components/Loading/Loading";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -82,7 +83,7 @@ const AllUsers = () => {
     }
   };
 
-  if (isUsersLoading || isBookingsLoading) return <h1>Loading</h1>;
+  if (isUsersLoading || isBookingsLoading) return <span><Loading></Loading></span>;
 
   // Aggregate bookings by user email
   const bookingCounts = bookings.reduce((acc, booking) => {

@@ -14,6 +14,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 const PaymentPage = () => {
   const navigate = useNavigate();
   const { price, _id } = useLoaderData();
+  console.log(price);
   const [clientSecret, setClientSecret] = useState("");
   const [isPaid, setIsPaid] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
