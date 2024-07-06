@@ -11,7 +11,7 @@ const Banner = () => {
           <h1 className="text-3xl lg:mx-0 mx-3 font-bold leading-none sm:text-6xl bg-gradient-to-r from-orange-400 via-blue-500 to-green-400 text-transparent bg-clip-text animate-gradient">
             TrackNShip: Your Reliable Partner in Seamless Parcel Delivery
           </h1>
-          <p className="mt-3 mb-3 text-lg lg:mx-0 mx-8 text-gray-600">
+          <p className="mt-3 mb-3 text-lg text-gray-600">
             TrackNShip offers fast, reliable parcel delivery with real-time
             tracking for your peace of mind.
           </p>
