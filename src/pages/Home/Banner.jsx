@@ -1,33 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import Lottie from "lottie-react";
-// import cycle from "@/assets/Cycle.json";
+import Lottie from "lottie-react";
+import littleguy from "@/assets/littleguy.json";
 
 const Banner = () => {
   return (
-    <>
-      {/* <div className="">
-        <Lottie animationData={cycle} className="h-[300px]"></Lottie>
-      </div> */}
-      <div
-        className="relative bg-cover bg-center h-[500px] mt-10 rounded-lg"
-        style={{
-          backgroundImage: "url('https://i.ibb.co/yBp1H6G/mesh-833.png')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-0"></div>
-        <div className=" relative flex flex-col items-center justify-center h-full text-center text-white">
-          <h1 className="text-5xl font-bold mb-4">Welcome to TrackNShip</h1>
-          <p className="text-xl mb-8">Discover amazing content below</p>
-          <div className="flex  md:w-1/2 lg:w-1/3">
-            <div className="flex w-full  items-center space-x-2">
+    <section className=" lg:pt-10">
+      <div className="container flex flex-col justify-center mx-auto py- lg:flex-row lg:justify-between rounded-3xl">
+        <div className="lg:w-3/6 lg:h-[400px] py-5 flex flex-col justify-center text-center rounded-sm lg:text-left md:text-left">
+          <h1 className="text-3xl lg:mx-0 mx-3 font-bold leading-none sm:text-6xl bg-gradient-to-r from-orange-400 via-blue-500 to-green-400 text-transparent bg-clip-text animate-gradient">
+            TrackNShip: Your Reliable Partner in Seamless Parcel Delivery
+          </h1>
+          <p className="mt-3 mb-3 text-lg lg:mx-0 mx-8 text-gray-600">
+            TrackNShip offers fast, reliable parcel delivery with real-time
+            tracking for your peace of mind.
+          </p>
+          <div className="flex flex-col lg:mx-0 mx-8 sm:items-center sm:justify-center sm:flex-row lg:space-y-0 space-y-5 sm:space-x-4 lg:justify-start">
+            <div className="flex   items-center space-x-2 lg:pr-10 md:pr-0">
               <Input type="text" placeholder="Search..." />
-              <Button type="submit">Search</Button>
+              <Button type="submit" className="bg-violet-400">
+                Search
+              </Button>
             </div>
           </div>
         </div>
+        <div className="flex items-center justify-center lg:w-3/6 -mt-8 -top-8">
+          <Lottie
+            animationData={littleguy}
+            className="object-cover h-[405px] w-[800px] rounded-md p-5"
+          ></Lottie>
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 
