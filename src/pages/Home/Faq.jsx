@@ -9,8 +9,8 @@ const Faq = () => {
         <h2 className="mb-12 text-2xl font-bold leading-none text-center sm:text-5xl">
           Frequently Asked Questions
         </h2>
-        <div className="flex flex-col divide-y sm:px-8 lg:px-12 xl:px-32 dark:divide-gray-300">
-          <details>
+        <div className="flex flex-col  sm:px-8 lg:px-12 xl:px-32 space-y-1">
+          <details className="p-3 rounded-lg border">
             <summary className="py-2 outline-none cursor-pointer">
               How do I book a parcel for delivery on TrackNShip?
             </summary>
@@ -24,7 +24,7 @@ const Faq = () => {
               </p>
             </div>
           </details>
-          <details>
+          <details className="p-3 rounded-lg border">
             <summary className="py-2 outline-none cursor-pointer">
               What should I do if I forget my password?
             </summary>
@@ -37,7 +37,7 @@ const Faq = () => {
               </p>
             </div>
           </details>
-          <details>
+          <details className="p-3 rounded-lg border">
             <summary className="py-2 outline-none cursor-pointer">
               How can I track the status of my parcel?
             </summary>
@@ -50,7 +50,7 @@ const Faq = () => {
               </p>
             </div>
           </details>
-          <details>
+          <details className="p-3 rounded-lg border">
             <summary className="py-2 outline-none cursor-pointer">
               How do I contact customer support for issues with my delivery?
             </summary>
@@ -63,7 +63,7 @@ const Faq = () => {
               </p>
             </div>
           </details>
-          <details>
+          <details className="p-3 rounded-lg border">
             <summary className="py-2 outline-none cursor-pointer">
               Is my payment information secure on TrackNShip?
             </summary>
