@@ -16,7 +16,7 @@ const Banner = () => {
             tracking for your peace of mind.
           </p>
           <div className="flex flex-col lg:mx-0 mx-8 sm:items-center sm:justify-center sm:flex-row lg:space-y-0 space-y-5 sm:space-x-4 lg:justify-start">
-            <div className="flex   items-center space-x-2 lg:pr-10 md:pr-0">
+            <div className="flex   items-center space-x-2 w-full lg:pr-10 md:pr-0">
               <Input type="text" placeholder="Search..." />
               <Button type="submit" className="bg-violet-400">
                 Search
