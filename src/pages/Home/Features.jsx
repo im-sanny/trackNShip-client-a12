@@ -8,10 +8,10 @@ import {
 
 const Features = () => {
   return (
-    <>
+    <div className="py-10 mb-10">
     <header className="text-4xl flex justify-center mt-10 font-semibold"> Our Features</header>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-10">
-      <Card>
+      <Card className="bg-yellow-300">
         <div className="pl-6 pt-6">
           <img
             src="https://i.ibb.co/M23V1pm/vecteezy-location-3d-icon-illustration-28249606.png"
@@ -28,7 +28,7 @@ const Features = () => {
           </CardDescription>
         </CardHeader>
       </Card>
-      <Card>
+      <Card className="bg-pink-300">
         <div className="pl-6 pt-6">
           <img
             src="https://i.ibb.co/hHPP7nR/vecteezy-3d-element-delivery-icons-render-25350261.png"
@@ -45,7 +45,7 @@ const Features = () => {
           </CardDescription>
         </CardHeader>
       </Card>
-      <Card>
+      <Card className="bg-green-300">
         <div className="pl-6 pt-6">
           <img
             src="https://i.ibb.co/Lz6NwFN/vecteezy-customer-service-people-3d-illustration-45686541.png"
@@ -63,7 +63,7 @@ const Features = () => {
         </CardHeader>
       </Card>
     </div>
-    </>
+    </div>
   );
 };
 

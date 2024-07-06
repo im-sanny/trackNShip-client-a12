@@ -27,35 +27,37 @@ const AllDeliveryman = () => {
 
   return (
     <>
-    <div className="text-center bg-gray-100 py-5">
+      <div className="text-center bg-gray-100 py-5">
         <h1 className="text-black text-3xl font-bold mb-">All Deliveryman</h1>
       </div>
-    <div className="shadow-md rounded-lg overflow-auto">
-      <Table className="w-full">
-        <TableHeader>
-          <tr className="bg-green-200 ">
-            <TableHead className="px-4 py-2">Delivery Mans Name</TableHead>
-            <TableHead className="px-4 py-2">Phone Number</TableHead>
-            <TableHead className="px-4 py-2">
-              Number of Parcels Delivered
-            </TableHead>
-            <TableHead className="px-4 py-2">Average Review</TableHead>
-          </tr>
-        </TableHeader>
-        <TableBody>
-          {deliveryMen.map((deliveryman, index) => (
-            <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-              <td className="border px-4 py-2">{deliveryman.name}</td>
-              <td className="border px-4 py-2">{deliveryman.number}</td>
-              <td className="border px-4 py-2">
-                {deliveryman.numParcelsDelivered}
-              </td>
-              <td className="border px-4 py-2">{deliveryman.averageReview}</td>
+      <div className="shadow-md rounded-lg overflow-auto">
+        <Table className="w-full">
+          <TableHeader>
+            <tr className="">
+              <TableHead className="px-4 py-2">Delivery Mans Name</TableHead>
+              <TableHead className="px-4 py-2">Phone Number</TableHead>
+              <TableHead className="px-4 py-2">
+                Number of Parcels Delivered
+              </TableHead>
+              <TableHead className="px-4 py-2">Average Review</TableHead>
             </tr>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHeader>
+          <TableBody>
+            {deliveryMen.map((deliveryman, index) => (
+              <tr key={index} className={index % 2 === 0 }>
+                <td className="border px-4 py-2">{deliveryman.name}</td>
+                <td className="border px-4 py-2">{deliveryman.number}</td>
+                <td className="border px-4 py-2">
+                  {deliveryman.numParcelsDelivered}
+                </td>
+                <td className="border px-4 py-2">
+                  {deliveryman.averageReview}
+                </td>
+              </tr>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 };

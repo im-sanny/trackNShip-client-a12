@@ -7,12 +7,12 @@ import {
 
 const TopDeliveryman = () => {
   return (
-    <div className="mb-10">
+    <div className="pt-1 pb-20">
       <header className="text-4xl flex justify-center mt-16 mb-10 font-semibold">
         The Top Delivery Man
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <Card className="text-center w-full">
+        <Card className="text-center w-full bg-yellow-300">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
@@ -26,7 +26,7 @@ const TopDeliveryman = () => {
             <CardDescription>Rating: 5</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="text-center w-full">
+        <Card className="text-center w-full bg-pink-300">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
@@ -40,7 +40,7 @@ const TopDeliveryman = () => {
             <CardDescription>Rating: 4.9</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="text-center w-full">
+        <Card className="text-center w-full bg-green-300">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img

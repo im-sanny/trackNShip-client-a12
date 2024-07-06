@@ -1,6 +1,6 @@
 const Shop = () => {
   return (
-    <div className="my-10">
+    <div className="my-10 pt-16">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 mx-auto max-w-screen-lg">
         <img
           src="https://i.ibb.co/Wy5BBp3/Premade-Retro-70s-Style-Logo-Design-Seventies-Logo-Vintage-Etsy.jpg"

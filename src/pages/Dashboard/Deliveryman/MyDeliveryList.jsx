@@ -158,9 +158,11 @@ const MyDeliveryList = () => {
   return (
     <div className="mt-0">
       <div className="rounded-lg">
-        <CardHeader className="bg-gray-100 py-5">
-          <CardTitle className="text-center font-bold text-3xl">My Delivery List</CardTitle>
+        <CardHeader className="py-5">
+          <CardTitle className="text-center font-bold text-3xl">My Delivery List            
+          </CardTitle>
         </CardHeader>
+        <hr />
         <div>
           <div className="overflow-auto" style={{ maxHeight: "450px" }}>
             <Table className=''>

@@ -157,7 +157,9 @@ const Navbar = () => {
               alt=""
               className="h-8"
             />
-            TrackNShip
+            <p className="bg-gradient-to-r from-yellow-300 via-pink-300 to-green-300 text-transparent bg-clip-text animate-gradient">
+              TrackNShip
+            </p>
           </div>
         </div>
         <nav className="hidden flex-col justify-center w-full gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
