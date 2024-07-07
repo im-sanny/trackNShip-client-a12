@@ -132,8 +132,8 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <div className="sticky top-0 z-10">
+      <header className=" flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 bg-gray-100 dark:bg-gray-900">
         {/* sm sidebar */}
         <Sheet>
           <SheetTrigger asChild>

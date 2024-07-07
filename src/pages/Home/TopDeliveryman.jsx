@@ -11,22 +11,22 @@ const TopDeliveryman = () => {
       <header className="text-4xl flex justify-center mt-16 mb-10 font-semibold">
         The Top Delivery Man
       </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <Card className="text-center w-full bg-yellow-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <Card className="text-center w-full rounded-3xl">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
-                src="https://i.ibb.co/FhhZkbn/student-3.png"
+                src="https://i.ibb.co/cJhWzqt/student-1.png"
                 alt=""
                 className="h-20 "
               />
             </div>
-            <CardTitle>Johnson</CardTitle>
-            <CardDescription>Number of parcel Delivered: 6</CardDescription>
-            <CardDescription>Rating: 5</CardDescription>
+            <CardTitle>James</CardTitle>
+            <CardDescription>Number of parcel Delivered: 2</CardDescription>
+            <CardDescription>Rating: 4.8</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="text-center w-full bg-pink-300">
+        <Card className="text-center w-full rounded-3xl">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
@@ -40,18 +40,32 @@ const TopDeliveryman = () => {
             <CardDescription>Rating: 4.9</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="text-center w-full bg-green-300">
+        <Card className="text-center w-full rounded-3xl">
           <CardHeader>
             <div className="h-20 flex justify-center">
               <img
-                src="https://i.ibb.co/cJhWzqt/student-1.png"
+                src="https://i.ibb.co/30YTJVR/school.png"
                 alt=""
                 className="h-20 "
               />
             </div>
-            <CardTitle>James</CardTitle>
-            <CardDescription>Number of parcel Delivered: 2</CardDescription>
-            <CardDescription>Rating: 4.8</CardDescription>
+            <CardTitle>Owen</CardTitle>
+            <CardDescription>Number of parcel Delivered: 3</CardDescription>
+            <CardDescription>Rating: 5</CardDescription>
+          </CardHeader>
+        </Card>
+        <Card className="text-center w-full rounded-3xl">
+          <CardHeader>
+            <div className="h-20 flex justify-center">
+              <img
+                src="https://i.ibb.co/FhhZkbn/student-3.png"
+                alt=""
+                className="h-20 "
+              />
+            </div>
+            <CardTitle>Johnson</CardTitle>
+            <CardDescription>Number of parcel Delivered: 6</CardDescription>
+            <CardDescription>Rating: 5</CardDescription>
           </CardHeader>
         </Card>
       </div>

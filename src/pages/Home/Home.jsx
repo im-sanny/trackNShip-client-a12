@@ -3,6 +3,7 @@ import Faq from "./Faq";
 import Features from "./Features";
 import Shop from "./Shop";
 import Statistics from "./Statistics";
+import Testimonial from "./Testimonial";
 import TopDeliveryman from "./TopDeliveryman";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
       <Features></Features>
       <Statistics></Statistics>
       <TopDeliveryman></TopDeliveryman>
+      <Testimonial></Testimonial>
       <Faq></Faq>
     </div>
   );

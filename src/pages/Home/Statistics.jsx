@@ -39,10 +39,10 @@ const Statistics = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mb-8">
-      <Card className="flex bg-green-300">
+      <Card className="flex bg--300 rounded-3xl">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
-            src="https://i.ibb.co/zfynTjw/booking.png"
+            src="https://i.ibb.co/5TftP6G/teamwork.png"
             alt=""
             className="h-20"
           />
@@ -50,17 +50,17 @@ const Statistics = () => {
         <div>
           <CardHeader className="pb-2">
             <CardTitle className="text-4xl">
-              <CountUp start={0} end={totalParcelsBooked} duration={5} />
+              <CountUp start={0} end={totalUsers} duration={5} />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-md text-muted-foreground font-semibold">
-              Parcel Booked
+              Number of users
             </div>
           </CardContent>
         </div>
       </Card>
-      <Card className="flex bg-pink-300">
+      <Card className="flex bg--300 rounded-3xl">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
             src="https://i.ibb.co/9NKJkT2/delivered.png"
@@ -81,10 +81,10 @@ const Statistics = () => {
           </CardContent>
         </div>
       </Card>
-      <Card className="flex bg-yellow-300">
+      <Card className="flex bg--300 rounded-3xl">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img
-            src="https://i.ibb.co/5TftP6G/teamwork.png"
+            src="https://i.ibb.co/zfynTjw/booking.png"
             alt=""
             className="h-20"
           />
@@ -92,12 +92,12 @@ const Statistics = () => {
         <div>
           <CardHeader className="pb-2">
             <CardTitle className="text-4xl">
-              <CountUp start={0} end={totalUsers} duration={5} />
+              <CountUp start={0} end={totalParcelsBooked} duration={5} />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-md text-muted-foreground font-semibold">
-              Number of users
+              Parcel Booked
             </div>
           </CardContent>
         </div>

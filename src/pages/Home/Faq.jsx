@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 const Faq = () => {
   return (
-    <section className="dark:text-gray-500">
+    <section className="">
       <div className="container flex flex-col justify-center p-4 mx-auto md:p-8">
         <p className="p-2 text-sm font-medium tracking-wider text-center uppercase">
           How it works
         </p>
-        <h2 className="mb-12 text-2xl font-bold leading-none text-center sm:text-5xl">
+        <h2 className="mb-12 text-2xl font-semibold leading-none text-center sm:text-4xl">
           Frequently Asked Questions
         </h2>
         <div className="flex flex-col  sm:px-8 lg:px-12 xl:px-32 space-y-1">
