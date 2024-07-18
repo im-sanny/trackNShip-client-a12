@@ -26,6 +26,7 @@
     "@tanstack/react-query": "^5.40.1",
     "@tanstack/react-table": "^8.17.3",
     "@types/mapbox-gl": "^3.1.0",
+    "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -51,7 +52,7 @@
     "react-map-gl": "^7.1.7",
     "react-router-dom": "^6.23.1",
     "stripe": "^15.10.0",
-    "sweetalert2": "^11.11.0",
+    "sweetalert2": "^11.6.13",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "yup": "^1.4.0"
