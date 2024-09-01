@@ -62,24 +62,21 @@ const ProfileAll = () => {
               className="mx-auto object-cover rounded-md h-32 w-32 border-2 border-white"
             />
           </a>
-          <p className="p-2 uppercase px-4 text-xs text-white bg-pink-500 rounded-full">
+          <p className="p-2 my-2 uppercase px-4 text-xs text-white bg-pink-500 rounded-full">
             {role}
           </p>
-          <p className="mt-2 text-xl font-medium text-gray-800">
+          <p className="text-xl font-medium text-gray-800">
             User Id: {user?.uid}
           </p>
-          <div className="p-2 mt-4 rounded-lg flex justify-center mx-auto">
-            <div className="flex text-center mx-auto flex-wrap items-center justify-center text-sm text-gray-600">
-              <p className="flex flex-col w-full">
-                Name
-                <span className="font-bold text-black">
-                  {user?.displayName}
-                </span>
+          <div className="p-2 rounded-lg flex justify-center mx-auto">
+            <div className="flex text-center mx-auto flex-wrap items-center justify-center text-sm text-gray-800">
+              <p className="flex flex-col w-full font-bold text-black">
+                Email: {user?.email}
               </p>
-              <p className="flex flex-col w-full mt-1">
-                Email
-                <span className="font-bold text-black">{user?.email}</span>
+              <p className="flex flex-col my-2 w-full font-bold text-black">
+                Name: {user?.displayName}
               </p>
+
               <button
                 className="bg-[#F43F5E] mt-1 px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053] block mb-1"
                 onClick={() => setIsModalOpen(true)}
