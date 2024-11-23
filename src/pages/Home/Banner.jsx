@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Lottie from "lottie-react";
-import littleguy from "@/assets/littleguy.json";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import Lottie from 'lottie-react';
+import littleguy from '@/assets/littleguy.json';
 
 const Banner = () => {
   return (
@@ -11,7 +11,7 @@ const Banner = () => {
           <h1 className="text-3xl lg:mx-0 mx-3 font-bold leading-none sm:text-6xl bg-gradient-to-r from-green-300 via-pink-300 to-yellow-300 text-transparent bg-clip-text animate-gradient">
             TrackNShip: Your Reliable Partner in Seamless Parcel Delivery
           </h1>
-          <p className="mt-3 mb-3 text-lg text-gray-600">
+          <p className="mt-3 mb-3 text-lg text-muted-foreground">
             TrackNShip offers fast, reliable parcel delivery with real-time
             tracking for your peace of mind.
           </p>
