@@ -3,71 +3,69 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
+
+const deliverymen = [
+  {
+    name: 'Johnson',
+    parcels: 6,
+    rating: 5,
+    image: 'https://i.ibb.co/FhhZkbn/student-3.png',
+  },
+  {
+    name: 'Owen',
+    parcels: 3,
+    rating: 5,
+    image: 'https://i.ibb.co/30YTJVR/school.png',
+  },
+  {
+    name: 'Tom',
+    parcels: 3,
+    rating: 4.9,
+    image: 'https://i.ibb.co/9H2c0Cn/boy-1.png',
+  },
+  {
+    name: 'James',
+    parcels: 2,
+    rating: 4.8,
+    image: 'https://i.ibb.co/cJhWzqt/student-1.png',
+  },
+];
 
 const TopDeliveryman = () => {
   return (
-    <div className="pt-1 pb-20">
-      <header className="text-4xl flex justify-center mt-16 mb-10 font-semibold">
-        The Top Delivery Man
-      </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <Card className="text-center w-full rounded-3xl">
-          <CardHeader>
-            <div className="h-20 flex justify-center">
-              <img
-                src="https://i.ibb.co/cJhWzqt/student-1.png"
-                alt=""
-                className="h-20 "
-              />
-            </div>
-            <CardTitle>James</CardTitle>
-            <CardDescription>Number of parcel Delivered: 2</CardDescription>
-            <CardDescription>Rating: 4.8</CardDescription>
-          </CardHeader>
-        </Card>
-        <Card className="text-center w-full rounded-3xl">
-          <CardHeader>
-            <div className="h-20 flex justify-center">
-              <img
-                src="https://i.ibb.co/9H2c0Cn/boy-1.png"
-                alt=""
-                className="h-20 "
-              />
-            </div>
-            <CardTitle>Tom</CardTitle>
-            <CardDescription>Number of parcel Delivered: 3</CardDescription>
-            <CardDescription>Rating: 4.9</CardDescription>
-          </CardHeader>
-        </Card>
-        <Card className="text-center w-full rounded-3xl">
-          <CardHeader>
-            <div className="h-20 flex justify-center">
-              <img
-                src="https://i.ibb.co/30YTJVR/school.png"
-                alt=""
-                className="h-20 "
-              />
-            </div>
-            <CardTitle>Owen</CardTitle>
-            <CardDescription>Number of parcel Delivered: 3</CardDescription>
-            <CardDescription>Rating: 5</CardDescription>
-          </CardHeader>
-        </Card>
-        <Card className="text-center w-full rounded-3xl">
-          <CardHeader>
-            <div className="h-20 flex justify-center">
-              <img
-                src="https://i.ibb.co/FhhZkbn/student-3.png"
-                alt=""
-                className="h-20 "
-              />
-            </div>
-            <CardTitle>Johnson</CardTitle>
-            <CardDescription>Number of parcel Delivered: 6</CardDescription>
-            <CardDescription>Rating: 5</CardDescription>
-          </CardHeader>
-        </Card>
+    <div className="container mx-auto px-4 py-10">
+      <h2 className="text-3xl font-bold text-center mb-8">
+        Top Delivery Personnel
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {deliverymen
+          .sort((a, b) => b.parcels - a.parcels || b.rating - a.rating)
+          .map((person, index) => (
+            <Card
+              key={person.name}
+              className="flex flex-col items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-2xl"
+            >
+              <div className="mb-4 w-24 h-24 flex items-center justify-center">
+                <img
+                  src={person.image}
+                  alt={`${person.name}'s profile`}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+              <CardHeader className="text-center w-full">
+                <CardTitle className="text-xl font-semibold mb-2">
+                  {person.name}
+                </CardTitle>
+                <CardDescription>
+                  Parcels Delivered: {person.parcels}
+                </CardDescription>
+                <CardDescription>
+                  Rating: {person.rating.toFixed(1)}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
       </div>
     </div>
   );
