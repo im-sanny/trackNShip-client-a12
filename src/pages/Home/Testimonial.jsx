@@ -28,7 +28,7 @@ const Testimonial = () => {
 
   const renderTestimonial = ({ name, position, image, feedback, bgColor }) => (
     <div
-      className={`flex flex-col max-w-sm mx-4 my-6 shadow-lg ${bgColor} rounded-3xl border border-muted-foreground`}
+      className={`flex flex-col max-w-sm mx-4 my-6 shadow-lg ${bgColor} rounded-3xl border-gray-300 border-2`}
     >
       <div className="px-4 py-12 rounded-t-lg sm:px-8 md:px-12 flex-grow">
         <p className="relative px-6 py-1 text-lg italic text-center text-muted-foreground">

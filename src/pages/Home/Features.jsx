@@ -55,7 +55,7 @@ const FEATURES_DATA = [
 
 // Create a reusable FeatureCard component
 const FeatureCard = ({ icon, title, description }) => (
-  <Card className="rounded-3xl hover:shadow-lg transition-all duration-300 ease-in-out dark:border-gray-700">
+  <Card className="rounded-3xl hover:shadow-lg transition-all duration-300 ease-in-out  border-gray-300 border-2">
     <div className="pl-6 pt-6">
       <img src={icon} alt={title} className="h-24 w-24 object-contain" />
     </div>

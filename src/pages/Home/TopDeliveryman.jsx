@@ -43,7 +43,7 @@ const TopDeliveryman = () => {
           .sort((a, b) => b.parcels - a.parcels || b.rating - a.rating)
           .map((person, index) => (
             <Card
-              key={person.name}
+              key={index}
               className="flex flex-col items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-2xl"
             >
               <div className="mb-4 w-24 h-24 flex items-center justify-center">
