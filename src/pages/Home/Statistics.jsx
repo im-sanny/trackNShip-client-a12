@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import CountUp from "react-countup";
+} from '@/components/ui/card';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
+import CountUp from 'react-countup';
 
 const Statistics = () => {
   const axiosSecure = useAxiosSecure();
@@ -18,19 +18,19 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const response1 = await axiosSecure?.get("/allParcel");
-        const response2 = await axiosSecure?.get("/user");
+        const response1 = await axiosSecure?.get('/allParcel');
+        const response2 = await axiosSecure?.get('/user');
 
         setTotalParcelsBooked(response1?.data?.length);
 
         const deliveredParcels = response1?.data?.filter(
-          (parcel) => parcel?.status === "delivered"
+          (parcel) => parcel?.status === 'delivered'
         );
         setTotalParcelsDelivered(deliveredParcels?.length);
 
         setTotalUsers(response2?.data?.length);
       } catch (error) {
-        console.error("Error fetching statistics:", error);
+        console.error('Error fetching statistics:', error);
       }
     };
 
@@ -38,69 +38,59 @@ const Statistics = () => {
   }, [axiosSecure]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mb-10">
-      <Card className="flex bg-teal-300 rounded-3xl">
-        <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
+    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-5 lg:mx-20 mx-5 mb-10">
+      <Card className="flex flex-col items-center p-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105 duration-300 h-[270px] w-full lg:w-[270px] border-2 border-gray-300">
+        <CardDescription className="flex items-center bg-green-100 p-4 shadow-md rounded-full border-4 border-r-violet-500">
           <img
             src="https://i.ibb.co/5TftP6G/teamwork.png"
-            alt=""
+            alt="Users"
             className="h-20"
           />
         </CardDescription>
-        <div>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-4xl">
-              <CountUp start={0} end={totalUsers} duration={5} />
-            </CardTitle>
-          </CardHeader>
+        <CardHeader className="text-center">
+          <CardTitle className="text-5xl font-bold">
+            <CountUp start={0} end={totalUsers} duration={5} />
+          </CardTitle>
           <CardContent>
-            <div className="text-md font-semibold">
-              Number of users
-            </div>
+            <div className="text-md font-semibold">Number of Users</div>
           </CardContent>
-        </div>
+        </CardHeader>
       </Card>
-      <Card className="flex bg-teal-300 rounded-3xl">
-        <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
+      <Card className="flex flex-col items-center p-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105 duration-300 h-[270px] w-full lg:w-[270px] border-2 border-gray-300">
+        <CardDescription className="flex items-center bg-green-100 p-4 shadow-md rounded-full border-4 border-r-violet-500">
           <img
             src="https://i.ibb.co/9NKJkT2/delivered.png"
-            alt=""
+            alt="Delivered"
             className="h-20"
           />
         </CardDescription>
-        <div>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-4xl">
-              <CountUp start={0} end={totalParcelsDelivered} duration={5} />
-            </CardTitle>
-          </CardHeader>
+        <CardHeader className="text-center">
+          <CardTitle className="text-5xl font-bold">
+            <CountUp start={0} end={totalParcelsDelivered} duration={5} />
+          </CardTitle>
           <CardContent>
-            <div className="text-md font-semibold">
-              Parcel Delivered
+            <div className="text-md font-semibold text-nowrap">
+              Parcels Delivered
             </div>
           </CardContent>
-        </div>
+        </CardHeader>
       </Card>
-      <Card className="flex bg-teal-300 rounded-3xl">
-        <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
+      <Card className="flex flex-col items-center p-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105 duration-300 h-[270px] w-full lg:w-[270px] border-2 border-gray-300">
+        <CardDescription className="flex items-center bg-green-100 p-4 shadow-md rounded-full border-4 border-r-violet-500">
           <img
             src="https://i.ibb.co/zfynTjw/booking.png"
-            alt=""
+            alt="Booked"
             className="h-20"
           />
         </CardDescription>
-        <div>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-4xl">
-              <CountUp start={0} end={totalParcelsBooked} duration={5} />
-            </CardTitle>
-          </CardHeader>
+        <CardHeader className="text-center">
+          <CardTitle className="text-5xl font-bold">
+            <CountUp start={0} end={totalParcelsBooked} duration={5} />
+          </CardTitle>
           <CardContent>
-            <div className="text-md font-semibold">
-              Parcel Booked
-            </div>
+            <div className="text-md font-semibold">Parcels Booked</div>
           </CardContent>
-        </div>
+        </CardHeader>
       </Card>
     </div>
   );
