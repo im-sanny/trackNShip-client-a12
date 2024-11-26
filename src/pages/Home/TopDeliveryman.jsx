@@ -44,24 +44,26 @@ const TopDeliveryman = () => {
           .map((person, index) => (
             <Card
               key={index}
-              className="flex flex-col items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-2xl"
+              className="flex flex-col items-center p-6 border border-gray-200 shadow-lg rounded-3xl transition-transform transform hover:scale-105"
             >
-              <div className="mb-4 w-24 h-24 flex items-center justify-center">
+              <div className="mb-4 w-24 h-24 flex items-center justify-center rounded-full overflow-hidden border-4 border-violet-400">
                 <img
                   src={person.image}
                   alt={`${person.name}'s profile`}
-                  className="max-w-full max-h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <CardHeader className="text-center w-full">
                 <CardTitle className="text-xl font-semibold mb-2">
                   {person.name}
                 </CardTitle>
-                <CardDescription>
-                  Parcels Delivered: {person.parcels}
+                <CardDescription className="">
+                  Parcels Delivered:{' '}
+                  <span className="font-bold">{person.parcels}</span>
                 </CardDescription>
-                <CardDescription>
-                  Rating: {person.rating.toFixed(1)}
+                <CardDescription className="">
+                  Rating:{' '}
+                  <span className="font-bold">{person.rating.toFixed(1)}</span>
                 </CardDescription>
               </CardHeader>
             </Card>
