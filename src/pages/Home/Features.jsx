@@ -68,8 +68,8 @@ const FeatureCard = ({ icon, title, description }) => (
 
 const Features = () => {
   return (
-    <section className="container mx-auto px-4 py-5">
-      <header className="text-center mb-12">
+    <section className="container mx-auto px-4 mb-10">
+      <header className="text-center mb-6">
         <h2 className="text-4xl font-bold mb-4">Features of TrackNShip</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Discover the comprehensive features that make TrackNShip your ultimate

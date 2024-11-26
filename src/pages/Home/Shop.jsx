@@ -42,7 +42,7 @@ const LogoItem = ({ src, alt }) => (
 
 const Shop = () => {
   return (
-    <div className="lg:my-10">
+    <div className="mb-10">
       <h2 className="text-center text-4xl font-semibold mb-6">Our Partners</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mx-auto max-w-screen-lg">
         {LOGOS.map((logo) => (

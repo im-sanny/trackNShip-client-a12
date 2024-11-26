@@ -38,7 +38,7 @@ const Statistics = () => {
   }, [axiosSecure]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mb-10">
       <Card className="flex bg-teal-300 rounded-3xl">
         <CardDescription className="flex items-center bg-green-100 rounded-md m-6 mr-0">
           <img

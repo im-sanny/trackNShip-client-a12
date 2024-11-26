@@ -5,8 +5,8 @@ import littleguy from '@/assets/littleguy.json';
 
 const Banner = () => {
   return (
-    <section className=" lg:pt-10">
-      <div className="container flex flex-col justify-center mx-auto py- lg:flex-row lg:justify-between rounded-3xl">
+    <section className="">
+      <div className="container flex flex-col justify-center mx-auto lg:flex-row lg:justify-between rounded-3xl mb-10">
         <div className="lg:w-3/6 lg:h-[400px] py-5 flex flex-col justify-center text-center rounded-sm lg:text-left md:text-left">
           <h1 className="text-3xl lg:mx-0 mx-3 font-bold leading-none sm:text-6xl bg-gradient-to-r from-green-300 via-pink-300 to-yellow-300 text-transparent bg-clip-text animate-gradient">
             TrackNShip: Your Reliable Partner in Seamless Parcel Delivery

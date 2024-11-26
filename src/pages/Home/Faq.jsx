@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 const Faq = () => {
   return (
-    <section className="">
-      <div className="container flex flex-col justify-center p-4 mx-auto md:p-8">
+    <section className="mb-10">
+      <div className="container flex flex-col justify-center mx-auto">
         <p className="p-2 text-sm font-medium tracking-wider text-center uppercase">
           How it works
         </p>
