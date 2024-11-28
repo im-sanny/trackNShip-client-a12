@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import Lottie from "lottie-react";
-import bikeCourier from "@/assets/bikeCourier";
-import useAuth from "@/hooks/useAuth";
-import toast from "react-hot-toast";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import Lottie from 'lottie-react';
+import bikeCourier from '@/assets/bikeCourier';
+import useAuth from '@/hooks/useAuth';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const Login = () => {
   const {
@@ -19,7 +19,7 @@ const Login = () => {
     saveUser,
   } = useAuth();
   const location = useLocation();
-  const Form = location?.state || "/";
+  const Form = location?.state || '/';
   const navigate = useNavigate();
   const [email, setEmail] = useState();
 
@@ -33,7 +33,7 @@ const Login = () => {
     try {
       await signIn(email, password);
       navigate(form);
-      toast.success("Login Successful");
+      toast.success('Login Successful');
       form.reset();
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
+
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
@@ -62,7 +62,7 @@ const Login = () => {
       await saveUser(userInfo);
 
       navigate(Form);
-      toast.success("Registration successful");
+      toast.success('Registration successful');
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -80,11 +80,11 @@ const Login = () => {
   };
 
   const handleResetPassword = async () => {
-    if (!email) return toast.error("Please write your email first!");
+    if (!email) return toast.error('Please write your email first!');
     try {
       await resetPassword(email);
       toast.success(
-        "Request Successful, Check your email for further process..."
+        'Request Successful, Check your email for further process...'
       );
       setLoading(false);
     } catch (error) {
@@ -97,19 +97,19 @@ const Login = () => {
   return (
     <>
       <div className="flex justify-center items-center">
-        <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg lg:max-w-4xl my-10">
+        <div className="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg lg:max-w-4xl my-10">
           <div className="hidden justify-center items-center my-auto lg:block lg:w-1/2">
             <Lottie animationData={bikeCourier}></Lottie>
           </div>
 
           <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-            <p className="mt-3 text-xl text-center text-gray-600 font-bold">
+            <p className="mt-3 text-xl text-center text-muted-foreground font-bold">
               Welcome back!
             </p>
 
             <div className="flex items-center justify-between mt-4">
-              <span className="w-1/5 border-b  lg:w-1/4"></span>
-              <div className="text-xs text-center text-gray-500 uppercase  hover:underline">
+              <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
+              <div className="text-xs text-center uppercase">
                 login with email and password
               </div>
               <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
@@ -145,7 +145,7 @@ const Login = () => {
                 </span>
               </div>
               <Button disabled={loading} type="submit" className="w-full">
-                {loading ? <span className="loader"></span> : " Login"}
+                {loading ? <span className="loader"></span> : ' Login'}
               </Button>
             </form>
 
@@ -154,13 +154,16 @@ const Login = () => {
               variant="outline"
               className="w-full flex items-center gap-1 mt-4"
             >
-              {" "}
+              {' '}
               <FcGoogle size={20}></FcGoogle>
               Login with Google
             </Button>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link to={"/registration"} className="hover:underline">
+              Don&apos;t have an account?{' '}
+              <Link
+                to={'/registration'}
+                className="hover:underline hover:text-blue-500"
+              >
                 Register
               </Link>
             </div>
