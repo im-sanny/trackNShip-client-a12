@@ -1,8 +1,3 @@
-import { useState, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { GrFormNext, GrPrevious } from "react-icons/gr";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -10,9 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+} from '@/components/ui/table';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,33 +13,39 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
+} from '@/components/ui/alert-dialog';
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/components/ui/popover";
-
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
-import toast from "react-hot-toast";
-import Loading from "@/components/Loading/Loading";
+} from '@/components/ui/popover';
+import { useState, useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { GrFormNext, GrPrevious } from 'react-icons/gr';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { AlertDialogCancel } from '@radix-ui/react-alert-dialog';
+import { format } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
+import { CalendarIcon } from 'lucide-react';
+import toast from 'react-hot-toast';
+import Loading from '@/components/Loading/Loading';
 
 const AllParcel = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [selectedParcel, setSelectedParcel] = useState(null);
   const [deliveryMen, setDeliveryMen] = useState([]);
-  const [deliveryManId, setDeliveryManId] = useState("");
-  const [approxDeliveryDate, setApproxDeliveryDate] = useState("");
+  const [deliveryManId, setDeliveryManId] = useState('');
+  const [approxDeliveryDate, setApproxDeliveryDate] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchParcels = async () => {
-    const { data } = await axiosSecure.get("/allParcel");
+    const { data } = await axiosSecure.get('/allParcel');
     return data;
   };
 
@@ -56,13 +55,13 @@ const AllParcel = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["allParcel"],
+    queryKey: ['allParcel'],
     queryFn: fetchParcels,
   });
 
   const fetchDeliveryMen = async () => {
-    const { data } = await axiosSecure.get("/user");
-    setDeliveryMen(data.filter((user) => user.role === "deliveryman"));
+    const { data } = await axiosSecure.get('/user');
+    setDeliveryMen(data.filter((user) => user.role === 'deliveryman'));
   };
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const AllParcel = () => {
       try {
         const selectedParcelId = selectedParcel?._id;
         if (!selectedParcelId) {
-          console.error("Selected parcel ID is undefined.");
+          console.error('Selected parcel ID is undefined.');
           return;
         }
         const response = await axiosSecure.post(
@@ -86,25 +85,25 @@ const AllParcel = () => {
         );
 
         // Handle success response
-        toast.success("Booking updated successfully");
-        console.log("Booking updated successfully:", response.data);
+        toast.success('Booking updated successfully');
+        console.log('Booking updated successfully:', response.data);
         refetch();
         console.log(deliveryManId, selectedParcelId, approxDeliveryDate);
       } catch (error) {
         // Handle error
-        console.error("Error assigning delivery man:", error);
+        console.error('Error assigning delivery man:', error);
         toast.error(error.message);
       }
     } else {
       console.error(
-        "Selected parcel, delivery man ID, or approximate delivery date is undefined."
+        'Selected parcel, delivery man ID, or approximate delivery date is undefined.'
       );
     }
   };
 
   const handleSearch = () => {
     setCurrentPage(1);
-    queryClient.invalidateQueries("allParcel");
+    queryClient.invalidateQueries('allParcel');
   };
 
   const filteredParcels = allParcels.filter((parcel) => {
@@ -137,22 +136,22 @@ const AllParcel = () => {
   return (
     <>
       <Card>
-        <CardHeader className="bg-gray-100 py-3 mb-1">
-          <CardTitle className="text-center text-black font-bold text-3xl">
+        <CardHeader className="py-3 mb-1">
+          <CardTitle className="text-center font-bold text-3xl">
             All Parcel
           </CardTitle>
           <div className="flex justify-center gap-4">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  variant={"outline"}
+                  variant={'outline'}
                   className={`w-[280px] justify-start text-left font-normal ${
-                    !startDate && "text-muted-foreground"
+                    !startDate && 'text-muted-foreground'
                   }`}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {startDate ? (
-                    format(startDate, "PPP")
+                    format(startDate, 'PPP')
                   ) : (
                     <span>Pick a start date</span>
                   )}
@@ -170,14 +169,14 @@ const AllParcel = () => {
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  variant={"outline"}
+                  variant={'outline'}
                   className={`w-[280px] justify-start text-left font-normal ${
-                    !endDate && "text-muted-foreground"
+                    !endDate && 'text-muted-foreground'
                   }`}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {endDate ? (
-                    format(endDate, "PPP")
+                    format(endDate, 'PPP')
                   ) : (
                     <span>Pick an end date</span>
                   )}
@@ -245,12 +244,12 @@ const AllParcel = () => {
                         <div className="text-center">
                           <div className="flex justify-center gap-5">
                             <select
-                              className="outline p-2 rounded-md"
+                              className="outline p-2 rounded-md text-muted-foreground"
                               id="deliveryMan"
                               value={deliveryManId}
                               onChange={(e) => setDeliveryManId(e.target.value)}
                             >
-                              <option className="rounded-md py-1">
+                              <option className="rounded-md py-1 text-muted-foreground">
                                 Select Delivery Man
                               </option>
                               {deliveryMen.map((man) => (
@@ -260,7 +259,7 @@ const AllParcel = () => {
                               ))}
                             </select>
                             <input
-                              className="outline p-2 rounded-md"
+                              className="outline p-2 rounded-md text-muted-foreground"
                               type="date"
                               id="deliveryDate"
                               placeholder="Approximate Delivery Date"
@@ -268,8 +267,8 @@ const AllParcel = () => {
                                 approxDeliveryDate
                                   ? new Date(approxDeliveryDate)
                                       .toISOString()
-                                      .split("T")[0]
-                                  : ""
+                                      .split('T')[0]
+                                  : ''
                               }
                               onChange={(e) =>
                                 setApproxDeliveryDate(e.target.value)
@@ -307,7 +306,7 @@ const AllParcel = () => {
           {Array.from({ length: totalPages }, (_, index) => (
             <Button
               key={index + 1}
-              variant={currentPage === index + 1 ? "solid" : "outline"}
+              variant={currentPage === index + 1 ? 'solid' : 'outline'}
               size="sm"
               onClick={() => handlePageChange(index + 1)}
             >
