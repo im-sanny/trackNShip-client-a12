@@ -3,62 +3,107 @@ import {
   TableBody,
   TableHead,
   TableHeader,
-} from "@/components/ui/table";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useState, useEffect } from "react";
+  TableRow,
+  TableCell,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import Loading from '@/components/Loading/Loading';
 
 const AllDeliveryman = () => {
-  const [deliveryMen, setDeliveryMen] = useState([]);
   const axiosSecure = useAxiosSecure();
+  const [sortConfig, setSortConfig] = useState({ key: '', direction: 'asc' });
 
-  useEffect(() => {
-    fetchDeliveryMen();
-  }, []); // Fetch delivery men data when the component mounts
+  const {
+    data: deliveryMen = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['deliverymen'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/user');
+      return data.filter((user) => user.role === 'deliveryman');
+    },
+  });
 
-  const fetchDeliveryMen = async () => {
-    try {
-      const { data: users } = await axiosSecure.get("/user");
-      const deliveryMan = users.filter((user) => user.role === "deliveryman");
-      setDeliveryMen(deliveryMan);
-    } catch (error) {
-      console.error("Error fetching delivery men:", error);
-    }
+  const sortedDeliveryMen = [...deliveryMen].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+    return sortConfig.direction === 'asc'
+      ? aValue > bValue
+        ? 1
+        : -1
+      : aValue < bValue
+      ? 1
+      : -1;
+  });
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+    }));
   };
 
+  if (isLoading) return <Loading />;
+  if (error) return <div>Error loading delivery men</div>;
+
   return (
-    <>
-      <div className="text-center bg-gray-100 py-5">
-        <h1 className="text-black text-3xl font-bold mb-">All Deliveryman</h1>
-      </div>
-      <div className="shadow-md rounded-lg overflow-auto">
-        <Table className="w-full">
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-center">All Delivery Personnel</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
           <TableHeader>
-            <tr className="">
-              <TableHead className="px-4 py-2">Delivery Mans Name</TableHead>
-              <TableHead className="px-4 py-2">Phone Number</TableHead>
-              <TableHead className="px-4 py-2">
-                Number of Parcels Delivered
+            <TableRow>
+              <TableHead onClick={() => handleSort('name')}>
+                Name{' '}
+                {sortConfig.key === 'name' &&
+                  (sortConfig.direction === 'asc' ? '▲' : '▼')}
               </TableHead>
-              <TableHead className="px-4 py-2">Average Review</TableHead>
-            </tr>
+              <TableHead onClick={() => handleSort('number')}>
+                Phone Number{' '}
+                {sortConfig.key === 'number' &&
+                  (sortConfig.direction === 'asc' ? '▲' : '▼')}
+              </TableHead>
+              <TableHead onClick={() => handleSort('numParcelsDelivered')}>
+                Parcels Delivered{' '}
+                {sortConfig.key === 'numParcelsDelivered' &&
+                  (sortConfig.direction === 'asc' ? '▲' : '▼')}
+              </TableHead>
+              <TableHead onClick={() => handleSort('averageReview')}>
+                Average Review{' '}
+                {sortConfig.key === 'averageReview' &&
+                  (sortConfig.direction === 'asc' ? '▲' : '▼')}
+              </TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
-            {deliveryMen.map((deliveryman, index) => (
-              <tr key={index} className={index % 2 === 0 }>
-                <td className="border px-4 py-2">{deliveryman.name}</td>
-                <td className="border px-4 py-2">{deliveryman.number}</td>
-                <td className="border px-4 py-2">
-                  {deliveryman.numParcelsDelivered}
-                </td>
-                <td className="border px-4 py-2">
-                  {deliveryman.averageReview}
-                </td>
-              </tr>
+            {sortedDeliveryMen.map((deliveryman) => (
+              <TableRow key={deliveryman._id}>
+                <TableCell>{deliveryman.name}</TableCell>
+                <TableCell>{deliveryman.number}</TableCell>
+                <TableCell>
+                  <Badge variant="secondary">
+                    {deliveryman.numParcelsDelivered || 0}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  {deliveryman.averageReview
+                    ? `${deliveryman.averageReview.toFixed(1)}/5`
+                    : 'No reviews'}
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
-      </div>
-    </>
+      </CardContent>
+    </Card>
   );
 };
 
