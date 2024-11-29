@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -14,15 +14,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import useAuth from "@/hooks/useAuth";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-import { Helmet } from "react-helmet-async";
-import toast from "react-hot-toast";
-import { GrFormNext, GrPrevious } from "react-icons/gr";
-import Loading from "@/components/Loading/Loading";
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import useAuth from '@/hooks/useAuth';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { GrFormNext, GrPrevious } from 'react-icons/gr';
+import Loading from '@/components/Loading/Loading';
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -30,105 +29,82 @@ const AllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
-  // Fetch users data
   const {
     data: users = [],
     isLoading: isUsersLoading,
     refetch: refetchUsers,
   } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const { data } = await axiosSecure(`/user`);
-      return data;
-    },
+    queryKey: ['users'],
+    queryFn: () => axiosSecure('/user').then((res) => res.data),
   });
 
-  // Fetch bookings data
   const { data: bookings = [], isLoading: isBookingsLoading } = useQuery({
-    queryKey: ["bookings"],
-    queryFn: async () => {
-      const { data } = await axiosSecure(`/allParcel`);
-      return data;
-    },
+    queryKey: ['bookings'],
+    queryFn: () => axiosSecure('/allParcel').then((res) => res.data),
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: async ({ email, role }) => {
-      const { data } = await axiosSecure.patch(`/user/update/${email}`, {
-        role,
-        status: "Verified",
-      });
-      return data;
-    },
+    mutationFn: ({ email, role }) =>
+      axiosSecure.patch(`/user/update/${email}`, { role, status: 'Verified' }),
     onSuccess: () => {
       refetchUsers();
-      toast.success("User role updated successfully");
+      toast.success('User role updated');
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error(error.message);
-    },
+    onError: (error) => toast.error(error.message),
   });
 
   const changeUserRole = async (email, role) => {
     if (loggedInUser.email === email) {
-      toast.error("Action not allowed: You cannot change your own role");
+      toast.error('Cannot change your own role');
       return;
     }
+
     try {
       await mutateAsync({ email, role });
     } catch (error) {
       console.error(error);
-      toast.error(error.message);
     }
   };
 
-  if (isUsersLoading || isBookingsLoading) return <span><Loading></Loading></span>;
-
-  // Aggregate bookings by user email
   const bookingCounts = bookings.reduce((acc, booking) => {
     const email = booking.normalUser.email;
-    if (!acc[email]) acc[email] = 0;
-    acc[email]++;
+    acc[email] = (acc[email] || 0) + 1;
     return acc;
   }, {});
 
-  const totalPages = Math.ceil(users.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  const currentUsers = users.slice(startIndex, endIndex);
+  if (isUsersLoading || isBookingsLoading) return <Loading />;
 
-  const handleNextPage = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handlePageChange = (page) => setCurrentPage(page);
+  const totalPages = Math.ceil(users.length / rowsPerPage);
+  const currentUsers = users.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   const roleColors = {
-    user: "bg-blue-500 text-white",
-    deliveryman: "bg-green-500 text-white",
-    admin: "bg-red-500 text-white",
+    user: 'bg-blue-500 text-white',
+    deliveryman: 'bg-green-500 text-white',
+    admin: 'bg-red-500 text-white',
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Manage Users</title>
-      </Helmet>
-      <div className="text-center bg-gray-100 py-5">
-        <h1 className="text-black text-3xl font-bold mb-">All Users</h1>
-      </div>
-      <div className="container mx-auto p-4 outline-lime-50">
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-center">User Management</CardTitle>
+      </CardHeader>
+      <CardContent>
         <Table>
-          <TableHeader className="bg-slate-300">
+          <TableHeader>
             <TableRow>
-              <TableHead className="text-black">User’s Name</TableHead>
-              <TableHead className="text-black">Phone Number</TableHead>
-              <TableHead className="text-black">
-                Number of Parcels Booked
-              </TableHead>
-              <TableHead className="text-black">Total Spent Amount</TableHead>
-              <TableHead className="text-black">Role</TableHead>
-              <TableHead className="text-black">Action</TableHead>
+              {[
+                'Name',
+                'Phone',
+                'Parcels',
+                'Total Spent',
+                'Role',
+                'Action',
+              ].map((header) => (
+                <TableHead key={header}>{header}</TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -140,9 +116,8 @@ const AllUsers = () => {
                   {bookingCounts[user.email] || 0}
                 </TableCell>
                 <TableCell className="text-center">
-                  {user.totalSpent || "N/A"}
+                  {user.totalSpent || 'N/A'}
                 </TableCell>
-
                 <TableCell>
                   <Badge className={roleColors[user.role]}>{user.role}</Badge>
                 </TableCell>
@@ -152,23 +127,14 @@ const AllUsers = () => {
                       <Button variant="outline">Change Role</Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem
-                        onClick={() => changeUserRole(user.email, "user")}
-                      >
-                        User
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() =>
-                          changeUserRole(user.email, "deliveryman")
-                        }
-                      >
-                        Delivery Man
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => changeUserRole(user.email, "admin")}
-                      >
-                        Admin
-                      </DropdownMenuItem>
+                      {['user', 'deliveryman', 'admin'].map((role) => (
+                        <DropdownMenuItem
+                          key={role}
+                          onClick={() => changeUserRole(user.email, role)}
+                        >
+                          {role.charAt(0).toUpperCase() + role.slice(1)}
+                        </DropdownMenuItem>
+                      ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
@@ -176,36 +142,35 @@ const AllUsers = () => {
             ))}
           </TableBody>
         </Table>
-        <div className="flex justify-center p-4 space-x-2">
+
+        <div className="flex justify-center mt-4 space-x-2">
           <Button
             size="sm"
-            onClick={handlePrevPage}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
             <GrPrevious />
           </Button>
-          <span className="flex space-x-2">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <Button
-                key={index + 1}
-                variant={currentPage === index + 1 ? "solid" : "outline"}
-                size="sm"
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </Button>
-            ))}
-          </span>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <Button
+              key={i}
+              size="sm"
+              variant={currentPage === i + 1 ? 'solid' : 'outline'}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </Button>
+          ))}
           <Button
             size="sm"
-            onClick={handleNextPage}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >
             <GrFormNext />
           </Button>
         </div>
-      </div>
-    </>
+      </CardContent>
+    </Card>
   );
 };
 
