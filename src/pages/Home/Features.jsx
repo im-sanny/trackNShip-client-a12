@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 // Define features data to make the component more maintainable
 const FEATURES_DATA = [
@@ -55,15 +56,27 @@ const FEATURES_DATA = [
 
 // Create a reusable FeatureCard component
 const FeatureCard = ({ icon, title, description }) => (
-  <Card className="rounded-3xl hover:shadow-lg transition-all duration-300 ease-in-out  border-gray-300 border-2">
-    <div className="pl-6 pt-6">
-      <img src={icon} alt={title} className="h-24 w-24 object-contain" />
-    </div>
-    <CardHeader>
-      <CardTitle className="text-xl font-bold">{title}</CardTitle>
-      <CardDescription className="">{description}</CardDescription>
-    </CardHeader>
-  </Card>
+  <Link to={'/dashboard'}>
+    <Card className="rounded-3xl hover:shadow-xl duration-300 ease-in-out border-gray-300 border-2 overflow-hidden transition-transform transform hover:scale-105">
+      <div className="flex items-center p-4 space-x-4">
+        <div className="flex-shrink-0 flex justify-center items-center">
+          <img
+            src={icon}
+            alt={title}
+            className="h-20 object-contain bg-green-100 p-1 shadow-md rounded-full border-4 border-t-violet-500"
+          />
+        </div>
+        <div className="flex-grow">
+          <CardHeader className="p-0">
+            <CardTitle className="text-xl font-bold mb-2">{title}</CardTitle>
+            <CardDescription className="text-base">
+              {description}
+            </CardDescription>
+          </CardHeader>
+        </div>
+      </div>
+    </Card>
+  </Link>
 );
 
 const Features = () => {
