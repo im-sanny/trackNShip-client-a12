@@ -95,7 +95,7 @@ const Statistics = () => {
 
   return (
     <div>
-      <h1 className="text-center bg-gray-100 text-black py-5 text-3xl mb-4 font-bold">
+      <h1 className="text-center py-5 text-3xl mb-4 font-bold">
         Statistics
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 mx-5 justify-center">
