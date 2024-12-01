@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Camera, Edit2, User, Mail } from "lucide-react";
 import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
 import { Helmet } from "react-helmet-async";
@@ -18,16 +19,11 @@ const ProfileAll = () => {
     try {
       let imageUrl = user.photoURL;
       if (profileImage) {
-        // Upload image and get imageURL
         imageUrl = await imageUpload(profileImage);
       }
 
-      // Update profile with new name or image
       await updateUserProfile(displayName, imageUrl);
-
       toast.success("Profile updated successfully");
-
-      // Close the modal after updating
       setIsModalOpen(false);
     } catch (error) {
       console.log(error);
@@ -36,117 +32,137 @@ const ProfileAll = () => {
   };
 
   const handleImageChange = (e) => {
-    // Set the selected profile image
     const file = e.target.files[0];
     setProfileImage(file);
   };
 
   if (loading || isLoading)
     return (
-      <span className="">
-        <Loading></Loading>
-      </span>
+      <div className="flex justify-center items-center h-screen">
+        <Loading />
+      </div>
     );
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center p-4">
       <Helmet>
         <title>My Profile</title>
       </Helmet>
-      <div className="bg-white shadow-lg rounded-2xl w-3/5">
-        <div className="flex flex-col items-center justify-center p-4 -mt-16">
-          <a href="#" className="relative block">
-            <img
-              alt="profile"
-              src={user?.photoURL}
-              className="mx-auto object-cover rounded-md h-32 w-32 border-2 border-white"
-            />
-          </a>
-          <p className="p-2 my-2 uppercase px-4 text-xs text-white bg-pink-500 rounded-full">
-            {role}
-          </p>
-          <p className="text-xl font-medium text-gray-800">
-            User Id: {user?.uid}
-          </p>
-          <div className="p-2 rounded-lg flex justify-center mx-auto">
-            <div className="flex text-center mx-auto flex-wrap items-center justify-center text-sm text-gray-800">
-              <p className="flex flex-col w-full font-bold text-black">
-                Email: {user?.email}
-              </p>
-              <p className="flex flex-col my-2 w-full font-bold text-black">
-                Name: {user?.displayName}
-              </p>
 
+      <div className="relative w-full max-w-md">
+        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden transform transition-all duration-300 hover:scale-105">
+          {/* Background Pattern */}
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-pink-500 to-purple-600 opacity-80"></div>
+
+          {/* Profile Image Container */}
+          <div className="relative z-10 flex justify-center">
+            <div className="relative">
+              <img
+                src={user?.photoURL}
+                alt="Profile"
+                className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
+              />
               <button
-                className="bg-[#F43F5E] mt-1 px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053] block mb-1"
                 onClick={() => setIsModalOpen(true)}
+                className="absolute bottom-0 right-0 bg-pink-500 text-white p-2 rounded-full shadow-md hover:bg-pink-600 transition-colors"
               >
-                Edit Profile
+                <Camera size={16} />
               </button>
             </div>
           </div>
+
+          {/* Profile Details */}
+          <div className="p-6 text-center">
+            <div className="mb-4">
+              <span className="px-3 py-1 bg-pink-500 text-white rounded-full text-xs tracking-wide uppercase">
+                {role}
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-center space-x-2 text-gray-700">
+                <User size={20} className="text-pink-500" />
+                <span className="font-semibold">{user?.displayName}</span>
+              </div>
+
+              <div className="flex items-center justify-center space-x-2 text-gray-700">
+                <Mail size={20} className="text-pink-500" />
+                <span>{user?.email}</span>
+              </div>
+
+              <div className="flex items-center justify-center space-x-2 text-gray-700">
+                <span className="text-sm text-gray-500">User ID: {user?.uid}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="mt-6 w-full py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all flex items-center justify-center space-x-2"
+            >
+              <Edit2 size={18} />
+              <span>Edit Profile</span>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3">
-            <div className="flex justify-end p-2">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-gray-600 hover:text-gray-900"
-              >
-                &times;
-              </button>
-            </div>
-            <div className="p-4">
-              <form onSubmit={handleProfileUpdate} className="w-full mt-4">
-                <div className="flex flex-wrap items-center justify-between text-sm text-gray-600">
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="displayName" className="font-bold">
-                      Name
-                    </label>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-gray-500 hover:text-gray-800"
+                >
+                  &times;
+                </button>
+              </div>
+
+              <form onSubmit={handleProfileUpdate}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Name</label>
                     <input
                       type="text"
-                      id="displayName"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
-                      className="p-2 mt-1 border rounded-md"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring focus:ring-pink-200"
                     />
                   </div>
-                  <div className="flex flex-col w-full mt-4">
-                    <label htmlFor="email" className="font-bold">
-                      Email
-                    </label>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
                     <input
                       type="email"
-                      id="email"
                       value={user?.email}
                       disabled
-                      className="p-2 mt-1 border rounded-md"
+                      className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 cursor-not-allowed"
                     />
                   </div>
-                  <div className="flex flex-col w-full mt-4">
-                    <label htmlFor="profilePicture" className="font-bold">
-                      Profile Picture
-                    </label>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Profile Picture</label>
                     <input
                       type="file"
-                      id="profilePicture"
                       onChange={handleImageChange}
-                      className="p-2 mt-1 border rounded-md"
+                      className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-pink-50 file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-pink-100"
                     />
                   </div>
-                  <div className="flex justify-between w-full mt-4">
+
+                  <div className="flex space-x-4">
                     <button
                       type="button"
-                      className="bg-gray-500 px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-gray-700"
                       onClick={() => setIsModalOpen(false)}
+                      className="w-full py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="bg-[#F43F5E] px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053]"
+                      className="w-full py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all"
                     >
                       Update Profile
                     </button>
