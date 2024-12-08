@@ -69,7 +69,7 @@ const FeatureCard = ({ icon, title, description }) => (
         <div className="flex-grow">
           <CardHeader className="p-0">
             <CardTitle className="text-xl font-bold mb-2">{title}</CardTitle>
-            <CardDescription className="text-base">
+            <CardDescription className="text-base h-full line-clamp-4 hover:line-clamp-none">
               {description}
             </CardDescription>
           </CardHeader>
