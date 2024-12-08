@@ -73,7 +73,7 @@ const Testimonial = () => {
             Customer Feedback About <br /> TrackNShip
           </h1>
         </div>
-        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto lg:flex-row lg:flex-wrap lg:justify-evenly lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto lg:justify-evenly lg:px-10">
           {testimonials.map(renderTestimonial)}
         </div>
       </section>
