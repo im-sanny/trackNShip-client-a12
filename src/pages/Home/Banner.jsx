@@ -6,7 +6,7 @@ import littleguy from '@/assets/littleguy.json';
 
 const Banner = () => {
   return (
-    <section className="my-10">
+    <section className="">
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
         <div className="space-y-6 text-center lg:text-left">
           <div className="inline-flex items-center bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full">

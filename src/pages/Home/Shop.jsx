@@ -1,55 +1,46 @@
 /* eslint-disable react/prop-types */
+import {
+  Store,
+  Gift,
+  ShoppingBag,
+  Coffee,
+  Shirt,
+  PlayCircle,
+} from 'lucide-react';
 
-const LOGOS = [
-  {
-    id: 1,
-    src: 'https://i.ibb.co/Wy5BBp3/Premade-Retro-70s-Style-Logo-Design-Seventies-Logo-Vintage-Etsy.jpg',
-    alt: 'Retro 70s Style Logo',
-  },
-  {
-    id: 2,
-    src: 'https://i.ibb.co/WxvfVRS/Play-Station-Store-logo-vector-svg-pdf-formats-free-download-Brandlogos-net.jpg',
-    alt: 'PlayStation Store Logo',
-  },
-  {
-    id: 3,
-    src: 'https://i.ibb.co/sjV5HgN/Kids-store-clothing-hanging-from-branch-logo-vector-image-on-Vector-Stock.jpg',
-    alt: 'Kids Store Logo',
-  },
-  {
-    id: 4,
-    src: 'https://i.ibb.co/gSp138k/The-Gifts-Online-Promotional-Products-Store-Logo-Design.jpg',
-    alt: 'Gifts Online Logo',
-  },
-  {
-    id: 5,
-    src: 'https://i.ibb.co/M8Nffc0/Bird-Gift-Premade-Logo-Design-Customized-with-Your-Business-Name-Ramble-Road-Studios.jpg',
-    alt: 'Bird Gift Logo',
-  },
-  {
-    id: 6,
-    src: 'https://i.ibb.co/J7DfVkn/Buy-Starbucks-Branded-Logo-Svg-Png-online-in-USA.jpg',
-    alt: 'Starbucks Logo',
-  },
-];
-
-// Create a reusable LogoItem component
-const LogoItem = ({ src, alt }) => (
-  <div className="flex items-center justify-center p-4 transition-transform transform hover:scale-105 w-full">
-    <img src={src} alt={alt} className="rounded-3xl object-contain shadow" />
+const PartnerIcon = ({ Icon, label }) => (
+  <div className="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group">
+    <Icon
+      className="w-12 h-12 text-blue-600 group-hover:text-blue-800 mb-2 transition-colors"
+      strokeWidth={1.5}
+    />
+    <p className="text-sm text-gray-600 text-center">{label}</p>
   </div>
 );
 
 const Shop = () => {
+  const PARTNER_ICONS = [
+    { Icon: Store, label: 'Retro Brands' },
+    { Icon: PlayCircle, label: 'PlayStation' },
+    { Icon: Shirt, label: 'Kids Fashion' },
+    { Icon: Gift, label: 'Online Gifts' },
+    { Icon: ShoppingBag, label: 'Gift Emporium' },
+    { Icon: Coffee, label: 'Starbucks' },
+  ];
+
   return (
-    <div className="mb-10">
-      <h2 className="text-center text-4xl font-semibold mb-6">Our Partners</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mx-auto max-w-screen-lg">
-        {LOGOS.map((logo) => (
-          <LogoItem key={logo.id} src={logo.src} alt={logo.alt} />
-        ))}
+    <section className="py-16">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Our Partners
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {PARTNER_ICONS.map(({ Icon, label }, index) => (
+            <PartnerIcon key={index} Icon={Icon} label={label} />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
