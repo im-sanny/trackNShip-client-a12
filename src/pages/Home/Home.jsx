@@ -1,14 +1,14 @@
-import Banner from "./Banner";
-import Faq from "./Faq";
-import Features from "./Features";
-import Shop from "./Shop";
-import Statistics from "./Statistics";
-import Testimonial from "./Testimonial";
-import TopDeliveryman from "./TopDeliveryman";
+import Banner from './Banner';
+import Faq from './Faq';
+import Features from './Features';
+import Shop from './Shop';
+import Statistics from './Statistics';
+import Testimonial from './Testimonial';
+import TopDeliveryman from './TopDeliveryman';
 
 const Home = () => {
   return (
-    <div>
+    <div className="space-y-16">
       <Banner></Banner>
       <Shop></Shop>
       <Features></Features>

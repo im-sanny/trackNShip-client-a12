@@ -29,11 +29,9 @@ const Shop = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section className="">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Our Partners
-        </h2>
+        <h2 className="text-4xl font-bold text-center mb-8">Our Partners</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {PARTNER_ICONS.map(({ Icon, label }, index) => (
             <PartnerIcon key={index} Icon={Icon} label={label} />

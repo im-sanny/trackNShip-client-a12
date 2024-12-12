@@ -67,7 +67,7 @@ const Testimonial = () => {
 
   return (
     <>
-      <section className="mb-10">
+      <section className="">
         <div className="container flex flex-col items-center mx-auto md:px-12">
           <h1 className="text-4xl font-semibold leading-none text-center">
             Customer Feedback About <br /> TrackNShip

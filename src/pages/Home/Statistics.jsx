@@ -38,7 +38,7 @@ const Statistics = () => {
   }, [axiosSecure]);
 
   return (
-    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-5 lg:mx-20 mx-5 mb-10">
+    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-5 lg:mx-20 mx-5">
       <Card className="flex flex-col items-center p-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105 duration-300 h-[270px] w-full lg:w-[270px] border-2 border-gray-300">
         <CardDescription className="flex items-center bg-green-100 p-4 shadow-md rounded-full border-4 border-r-violet-500">
           <img
@@ -52,7 +52,9 @@ const Statistics = () => {
             <CountUp start={0} end={totalUsers} duration={5} />
           </CardTitle>
           <CardContent>
-            <div className="text-md font-semibold">Number of Users</div>
+            <div className="text-md font-semibold text-nowrap">
+              Number of Users
+            </div>
           </CardContent>
         </CardHeader>
       </Card>

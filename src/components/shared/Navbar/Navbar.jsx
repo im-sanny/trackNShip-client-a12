@@ -1,6 +1,6 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, Moon, Sun } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Menu, Moon, Sun } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '../../ui/sheet';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +8,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import { Button } from "../../ui/button";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import useAuth from "@/hooks/useAuth";
-import toast from "react-hot-toast";
-import DeliverymanModal from "@/components/Modal/DeliverymanModal";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useEffect, useState } from "react";
+} from '../../ui/dropdown-menu';
+import { Button } from '../../ui/button';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import useAuth from '@/hooks/useAuth';
+import toast from 'react-hot-toast';
+import DeliverymanModal from '@/components/Modal/DeliverymanModal';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,48 +23,48 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
       return storedTheme;
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
     } else {
-      return "light";
+      return 'light';
     }
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const handleThemeSwitch = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
   const handleLogOut = async () => {
     try {
       await logOut();
-      toast.success("LogOut successful");
-      navigate("/");
+      toast.success('LogOut successful');
+      navigate('/');
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const modalHandler = async () => {
-    console.log("im interested to be deliveryman");
+    console.log('im interested to be deliveryman');
     try {
       const currentUser = {
         email: user?.email,
-        role: "user",
-        status: "Requested",
+        role: 'user',
+        status: 'Requested',
       };
       const { data } = await axiosSecure.put(`/user`, currentUser);
       if (data.modifiedCount > 0) {
-        toast.success("Success, please wait for admin approval");
+        toast.success('Success, please wait for admin approval');
       } else {
-        toast.success("request on process, please wait!");
+        toast.success('request on process, please wait!');
       }
       console.log(data);
     } catch (error) {
@@ -76,24 +76,24 @@ const Navbar = () => {
   const navLinks = (
     <>
       <NavLink
-        to={"/"}
+        to={'/'}
         className={({ isActive }) =>
           `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
             isActive
-              ? "bg-muted text-green-500"
-              : "hover:bg-muted hover:text-green-500"
+              ? 'bg-muted text-green-500'
+              : 'hover:bg-muted hover:text-green-500'
           }`
         }
       >
         Home
       </NavLink>
       <NavLink
-        to={"/dashboard"}
+        to={'/dashboard'}
         className={({ isActive }) =>
           `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
             isActive
-              ? "bg-muted text-green-500"
-              : "hover:bg-muted hover:text-green-500"
+              ? 'bg-muted text-green-500'
+              : 'hover:bg-muted hover:text-green-500'
           }`
         }
       >
@@ -101,12 +101,12 @@ const Navbar = () => {
       </NavLink>
       {!user && (
         <NavLink
-          to={"/login"}
+          to={'/login'}
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
               isActive
-                ? "bg-muted text-green-500"
-                : "hover:bg-muted hover:text-green-500"
+                ? 'bg-muted text-green-500'
+                : 'hover:bg-muted hover:text-green-500'
             }`
           }
         >
@@ -114,12 +114,12 @@ const Navbar = () => {
         </NavLink>
       )}
       <NavLink
-        to={"/notification"}
+        to={'/notification'}
         className={({ isActive }) =>
           `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
             isActive
-              ? "bg-muted text-green-500"
-              : "hover:bg-muted hover:text-green-500"
+              ? 'bg-muted text-green-500'
+              : 'hover:bg-muted hover:text-green-500'
           }`
         }
       >
@@ -157,7 +157,7 @@ const Navbar = () => {
               alt=""
               className="h-8"
             />
-            <p className="bg-gradient-to-r from-yellow-300 via-pink-300 to-green-300 text-transparent bg-clip-text animate-gradient">
+            <p className=" bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text">
               TrackNShip
             </p>
           </div>
@@ -166,7 +166,7 @@ const Navbar = () => {
           {navLinks}
         </nav>
         <button onClick={handleThemeSwitch}>
-          {theme === "dark" ? <Sun /> : <Moon />}
+          {theme === 'dark' ? <Sun /> : <Moon />}
         </button>
 
         <div className="flex justify-end  lg:w- items-center gap-2 md:ml-auto md:gap-2 lg:gap-4">
@@ -179,7 +179,7 @@ const Navbar = () => {
                   src={
                     user && user.photoURL
                       ? user.photoURL
-                      : "https://i.ibb.co/Mp6rjCg/profile.jpg"
+                      : 'https://i.ibb.co/Mp6rjCg/profile.jpg'
                   }
                   alt="profile"
                   height="30"
@@ -209,11 +209,11 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `flex items-center text-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
                       isActive
-                        ? "bg-muted text-green-500"
-                        : "hover:bg-muted hover:text-green-500"
+                        ? 'bg-muted text-green-500'
+                        : 'hover:bg-muted hover:text-green-500'
                     }`
                   }
-                  to={"/dashboard"}
+                  to={'/dashboard'}
                 >
                   Dashboard
                 </NavLink>
@@ -228,8 +228,8 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       `flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all ${
                         isActive
-                          ? "bg-muted text-green-500"
-                          : "hover:bg-muted hover:text-green-500"
+                          ? 'bg-muted text-green-500'
+                          : 'hover:bg-muted hover:text-green-500'
                       }`
                     }
                   >
