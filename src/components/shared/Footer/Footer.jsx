@@ -2,7 +2,7 @@ import { Facebook, Twitter, Github, Send } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black py-12">
+    <footer className="bg-blue-100/50 dark:bg-gray-800/50 py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}

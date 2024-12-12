@@ -41,7 +41,7 @@ const Sidebar = () => {
     <>
       <div className="grid lg:min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] ">
         <div className="hidden border-r bg-muted/40 md:block">
-          <div className="flex bg-slate-500 h-full flex-col gap-2">
+          <div className="flex bg-white/80 backdrop-blur-md dark:bg-gray-900/80 border-r border-gray-100 dark:border-gray-800 h-full flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link to={"/"} className="flex items-center gap-2 font-semibold">
                 <div className="font-bold flex items-center gap-1">
